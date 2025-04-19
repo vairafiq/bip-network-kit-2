@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Simple Directory Plugin
+Plugin Name: Bip Directory Kit
 Description: Overrides theme templates and includes custom post types, styles, and scripts for a simple directory listing.
 Version: 1.0
 Author: Bipper Media
