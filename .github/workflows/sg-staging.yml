@@ -2,21 +2,27 @@ on: push
 name: 🚀 Deploy to Network Sites
 jobs:
   web-deploy:
-    name: 🎉 Deploy - Bip Networks
+    name: 🎉 Deploy to ${{ matrix.user }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        user: [
+          bipadmin@localnearmedirectory.com,
+          localservicebiznearme@localservicebiznearme.com,
+          # ...add all 300 usernames here
+        ]
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@master
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: vm-bobby.cloudhfc.com
-        username: bipadmin@localnearmedirectory.com
-        port: 21
-        password: ${{ secrets.BIP_FTP_PASS }}
-        server-dir: /public_html/wp-content/plugins/bip-network-kit/
-        exclude: |
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📂 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ matrix.user }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: /public_html/wp-content/plugins/bip-network-kit/
+          exclude: |
             readme.txt
             utils.js
             todo.txt
