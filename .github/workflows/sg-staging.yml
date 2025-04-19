@@ -17,11 +17,6 @@ jobs:
         password: ${{ secrets.BIP_FTP_PASS }}
         server-dir: /domains/localnearmedirectory.com/public_html/wp-content/plugins/bip-network-kit/
         exclude: |
-            src/**
-            node_modules/**
-            resources/js/**
-            resources/svg/**
-            vendor-src/**
             readme.txt
             utils.js
             todo.txt
@@ -31,29 +26,3 @@ jobs:
             **/.*
             **/.git/**
             **/.github/**
-            **/.husky/**
-            **/dev-*/**
-            **/*-test/**
-            **/*-beta/**
-            **/scss/**
-            **/sass/**
-            **/build/*.txt
-            **/*.map
-            **/*.config
-            **/*.config.js
-            **/package.json
-            **/package-lock.json
-            **/tsconfig.json
-            **/mix-manifest.json
-            **/phpcs.xml
-            **/composer.json
-            **/composer.lock
-            **/*.md
-            **/*.mix.js
-            **/none
-            **/artisan
-            **/phpcs-report.xml
-            **/LICENSE
-            **/Installable
-            **/tests
-            **/yarn.lock
