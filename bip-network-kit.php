@@ -3,7 +3,7 @@
 Plugin Name: Bip Directory Kit
 Description: Overrides theme templates and includes custom post types, styles, and scripts for a simple directory listing...
 Version: 0.1
-Author: Bipper Media
+Author: Bip Dev Team
 Author URI: https://bippermedia.com
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
