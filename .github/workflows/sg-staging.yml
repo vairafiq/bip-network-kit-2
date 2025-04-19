@@ -11,8 +11,9 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.vm-bobby.cloudhfc.com
+        server: vm-bobby.cloudhfc.com
         username: bipadmin@localnearmedirectory.com
+        port: 21
         password: ${{ secrets.BIP_FTP_PASS }}
         server-dir: /home/admin/domains/localnearmedirectory.com/public_html/wp-content/plugins/
         exclude: |
