@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Bip Directory Kit
-Description: Overrides theme templates and includes custom post types, styles, and scripts for a simple directory listing.
+Description: A simple kit to override theme templates and includes custom post types, styles, and scripts for a simple directory listing.
 Version: 0.1.0
 Author: Bip Dev Team
 Author URI: https://bippermedia.com
