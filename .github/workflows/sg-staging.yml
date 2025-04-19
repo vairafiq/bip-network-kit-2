@@ -1,0 +1,58 @@
+on: push
+name: 🚀 SG Staging Deployment
+jobs:
+  web-deploy:
+    name: 🎉 Deploy - SG Staging
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@master
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ftp://vm-bobby.cloudhfc.com
+        username: bipadmin@localnearmedirectory.com
+        password: ${{ secrets.BIP_FTP_PASS }}
+        server-dir: /home/admin/domains/localnearmedirectory.com/public_html/wp-content/plugins/
+        exclude: |
+            src/**
+            node_modules/**
+            resources/js/**
+            resources/svg/**
+            vendor-src/**
+            readme.txt
+            utils.js
+            todo.txt
+            scoper.inc.php
+            webpack.*.js
+            **/Gruntfile.js
+            **/.*
+            **/.git/**
+            **/.github/**
+            **/.husky/**
+            **/dev-*/**
+            **/*-test/**
+            **/*-beta/**
+            **/scss/**
+            **/sass/**
+            **/build/*.txt
+            **/*.map
+            **/*.config
+            **/*.config.js
+            **/package.json
+            **/package-lock.json
+            **/tsconfig.json
+            **/mix-manifest.json
+            **/phpcs.xml
+            **/composer.json
+            **/composer.lock
+            **/*.md
+            **/*.mix.js
+            **/none
+            **/artisan
+            **/phpcs-report.xml
+            **/LICENSE
+            **/Installable
+            **/tests
+            **/yarn.lock
