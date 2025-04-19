@@ -15,7 +15,7 @@ jobs:
         username: bipadmin@localnearmedirectory.com
         port: 21
         password: ${{ secrets.BIP_FTP_PASS }}
-        server-dir: /home/admin/domains/localnearmedirectory.com/public_html/wp-content/plugins/
+        server-dir: /domains/localnearmedirectory.com/public_html/wp-content/plugins/bip-network-kit
         exclude: |
             src/**
             node_modules/**
