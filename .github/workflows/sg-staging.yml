@@ -1,8 +1,8 @@
 on: push
-name: 🚀 SG Staging Deployment
+name: 🚀 Deploy to Network Sites
 jobs:
   web-deploy:
-    name: 🎉 Deploy - SG Staging
+    name: 🎉 Deploy - Bip Networks
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
