@@ -32,3 +32,25 @@
         --h3: 1.2rem;
     }
 }
+
+
+
+/* container */
+.sd-single-page-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    column-gap: 2rem;
+}
+/* container */
+
+
+
+
+
+/* media */
+@media (max-width: 768px) {
+    .sd-single-page-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* media */
