@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title(); ?></title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <?php wp_head(); // This is important to include all the necessary styles and scripts ?>
 </head>
 <body <?php body_class(); ?>>
@@ -19,23 +22,70 @@
         <!-- Site Logo -->
         <div class="sd-logo">
             <a href="<?php echo home_url(); ?>" rel="home">
-                <?php if (has_custom_logo()) : ?>
-                    <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <h1><?php bloginfo('name'); ?></h1>
-                <?php endif; ?>
+                <span class="site-name"><?php bloginfo('name'); ?></span>
             </a>
         </div>
 
         <!-- Main Navigation -->
         <nav class="sd-navigation">
-            <?php 
-            wp_nav_menu( array(
-                'theme_location' => 'primary', // Ensure you've registered this menu in functions.php
-                'menu_class' => 'sd-menu',
-                'container' => false,
-            ) ); 
-            ?>
+
+            <button class="sd-menu-toggle">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <ul class="sd-menu">
+                <button class="sd-menu-toggle-close">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                <li class="sd-menu-item-wrapper">
+                    <span class="sd-menu-item">
+                        <a href="<?php echo esc_url(home_url('/')); ?>">
+                            Home
+                        </a>
+                        
+                    <!-- <span class="sd-submenu-toggle" aria-label="Toggle submenu">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </span> -->
+                
+                    </span>
+                    
+                    <!-- submenu -->
+                    <!-- <ul class="sd-submenu">
+                        <li class="sd-submenu-item">
+                            <a href="#">
+                                submenu item
+                            </a>
+                        </li>
+                    </ul> -->
+        
+                </li>
+                <li class="sd-menu-item-wrapper">
+                    <span class="sd-menu-item">
+                        <a href="<?php echo esc_url(home_url('/businesses')); ?>">
+                            Businesses
+                        </a>
+                        
+                    <!-- <span class="sd-submenu-toggle" aria-label="Toggle submenu">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </span> -->
+                
+                    </span>
+                    
+                    <!-- submenu -->
+                    <!-- <ul class="sd-submenu">
+                        <li class="sd-submenu-item">
+                            <a href="#">
+                                submenu item
+                            </a>
+                        </li>
+                    </ul> -->
+        
+                </li>
+
+            </ul>
         </nav>
+        <!-- Main Navigation -->
+
     </div>
 </header>

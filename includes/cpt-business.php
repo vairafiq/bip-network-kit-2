@@ -38,6 +38,64 @@ add_action('init', 'sd_register_business_cpt');
 
 
 /**
+ * Register Taxonomies for Businesses
+ */
+function sd_register_business_taxonomies() {
+    // Business Category (hierarchical)
+    $category_labels = array(
+        'name'              => 'Business Categories',
+        'singular_name'     => 'Business Category',
+        'search_items'      => 'Search Categories',
+        'all_items'         => 'All Categories',
+        'parent_item'       => 'Parent Category',
+        'parent_item_colon' => 'Parent Category:',
+        'edit_item'         => 'Edit Category',
+        'update_item'       => 'Update Category',
+        'add_new_item'      => 'Add New Category',
+        'new_item_name'     => 'New Category Name',
+        'menu_name'         => 'Categories',
+    );
+
+    register_taxonomy('business_category', 'businesses', array(
+        'hierarchical'      => true,
+        'labels'            => $category_labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'rewrite'           => array('slug' => 'business-category'),
+        'show_in_rest'      => true,
+    ));
+
+    // Business Location (hierarchical)
+    $location_labels = array(
+        'name'              => 'Business Locations',
+        'singular_name'     => 'Business Location',
+        'search_items'      => 'Search Locations',
+        'all_items'         => 'All Locations',
+        'parent_item'       => 'Parent Location',
+        'parent_item_colon' => 'Parent Location:',
+        'edit_item'         => 'Edit Location',
+        'update_item'       => 'Update Location',
+        'add_new_item'      => 'Add New Location',
+        'new_item_name'     => 'New Location Name',
+        'menu_name'         => 'Locations',
+    );
+
+    register_taxonomy('business_location', 'businesses', array(
+        'hierarchical'      => true,
+        'labels'            => $location_labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'rewrite'           => array('slug' => 'business-location'),
+        'show_in_rest'      => true,
+    ));
+    
+}
+add_action('init', 'sd_register_business_taxonomies');
+
+
+
+
+/**
  * Add meta box for Business Details
  */
 function sd_add_business_meta_boxes() {
