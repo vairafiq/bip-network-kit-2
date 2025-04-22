@@ -3,6 +3,7 @@
  * Register Custom Post Type: Business
  */
 
+
 function sd_register_business_cpt() {
     $labels = array(
         'name'               => 'Businesses',
@@ -25,11 +26,12 @@ function sd_register_business_cpt() {
         'has_archive'        => true,
         'menu_icon'          => 'dashicons-building',
         'supports'           => array('title', 'editor', 'thumbnail'),
-        'rewrite'            => array('slug' => 'businesses'),
+        'rewrite'            => array('slug' => 'biz'),
+        'query_var'          => 'business',
         'show_in_rest'       => true,
     );
 
-    register_post_type('businesses', $args);
+    register_post_type('sd_business', $args);
 }
 add_action('init', 'sd_register_business_cpt');
 
@@ -56,12 +58,12 @@ function sd_register_business_taxonomies() {
         'menu_name'         => 'Categories',
     );
 
-    register_taxonomy('business_category', 'businesses', array(
+    register_taxonomy('business_category', 'sd_business', array(
         'hierarchical'      => true,
         'labels'            => $category_labels,
         'show_ui'           => true,
         'show_admin_column' => true,
-        'rewrite'           => array('slug' => 'business-category'),
+        'rewrite'           => array('slug' => 'sd_business_category'),
         'show_in_rest'      => true,
     ));
 
@@ -80,12 +82,12 @@ function sd_register_business_taxonomies() {
         'menu_name'         => 'Locations',
     );
 
-    register_taxonomy('business_location', 'businesses', array(
+    register_taxonomy('business_location', 'sd_business', array(
         'hierarchical'      => true,
         'labels'            => $location_labels,
         'show_ui'           => true,
         'show_admin_column' => true,
-        'rewrite'           => array('slug' => 'business-location'),
+        'rewrite'           => array('slug' => 'sd_business_location'),
         'show_in_rest'      => true,
     ));
     
@@ -103,7 +105,7 @@ function sd_add_business_meta_boxes() {
         'sd_business_details',
         'Business Details',
         'sd_business_fields_callback',
-        'businesses',
+        'sd_business',
         'normal',
         'default'
     );
@@ -120,23 +122,40 @@ add_action('add_meta_boxes', 'sd_add_business_meta_boxes');
  */
 function sd_business_fields_callback($post) {
     $fields = [
+        'category'        => 'Business category',
         'phone'           => 'Business contact phone number.',
         'email'           => 'Business contact email address.',
         'website'         => 'Official website URL.',
+
+        'zip'             => 'ZIP code of the business.',
+        'city'            => 'City of the business.',
+        'state'           => 'State of the business.',
+        'country'         => 'Country of the business.',
+        'street'          => 'Street address.',
         'address'         => 'Full physical address.',
+        'business_address'=> 'Full business address.',
         'latitude'        => 'Latitude coordinate for map location.',
         'longitude'       => 'Longitude coordinate for map location.',
-        'google_id'       => 'Google Business ID.',
+
+        'price_range'     => 'Price range (e.g., $ - $$$).',
+        'main_image'      => 'Main image URL of the business.',
         'overall_rating'  => 'Average rating.',
-        'total_reviews'   => 'Total number of reviews.',
-        'google_reviews'  => 'Raw Google review data (HTML or text).',
-        'review_summary'  => 'Short summary of reviews (HTML allowed).',
-        'review_details'  => 'Detailed review content (HTML allowed).',
-        'google_images'   => 'HTML image tags or comma-separated URLs.',
+        'review_count'    => 'Total number of reviews.',
+        'review_details'  => 'Review star count details (HTML allowed).',
         'features'        => 'Key features or services (use HTML if needed).',
         'business_hours'  => 'Opening and closing times.',
-        'listed_date'     => 'Date when the business was listed.',
-        'expire_date'     => 'Date when the listing expires.'
+        'review_summary'  => 'Short summary of reviews (HTML allowed).',
+
+        'google_id'       => 'Business Google ID.',
+        'google_reviews'  => 'Raw Google review data (HTML or text).',
+        'google_images'   => 'HTML image tags or comma-separated URLs.',
+
+        'facebook'        => 'Facebook page URL.',
+        'x'               => 'X / Twitter profile URL.',
+        'linkedin'        => 'LinkedIn profile URL.',
+        'youtube'         => 'YouTube channel URL.',
+
+
     ];
 
     // Add nonce field for security
@@ -144,19 +163,19 @@ function sd_business_fields_callback($post) {
 
     echo '<table class="form-table">';
     foreach ($fields as $field => $description) {
-        $value = get_post_meta($post->ID, 'sd_' . $field, true);
+        $value = get_post_meta($post->ID, $field, true);
         $label = ucwords(str_replace('_', ' ', $field));
         $type = in_array($field, ['listed_date', 'expire_date']) ? 'date' : 'text';
-        $is_textarea = in_array($field, ['google_reviews', 'review_summary', 'review_details', 'google_images', 'features']);
+        $is_textarea = in_array($field, ['google_reviews', 'review_summary', 'review_details', 'google_images', 'features', 'business_hours']);
 
         echo "<tr>
-            <th><label for='sd_{$field}'>{$label}</label></th>
+            <th><label for='{$field}'>{$label}</label></th>
             <td>";
 
         if ($is_textarea) {
-            echo "<textarea id='sd_{$field}' name='sd_{$field}' rows='4' class='large-text'>" . esc_textarea($value) . "</textarea>";
+            echo "<textarea id='{$field}' name='{$field}' rows='4' class='large-text'>" . esc_textarea($value) . "</textarea>";
         } else {
-            echo "<input type='{$type}' id='sd_{$field}' name='sd_{$field}' value='" . esc_attr($value) . "' class='large-text' />";
+            echo "<input type='{$type}' id='{$field}' name='{$field}' value='" . esc_attr($value) . "' class='large-text' />";
         }
 
         echo "<p class='description'>{$description}</p>
@@ -183,15 +202,44 @@ function sd_save_business_fields($post_id) {
     if (!current_user_can('edit_post', $post_id)) return;
 
     $fields = [
-        'phone', 'email', 'website', 'address', 'latitude', 'longitude',
-        'google_id', 'overall_rating', 'total_reviews', 'google_reviews',
-        'review_summary', 'review_details', 'google_images', 'features',
-        'business_hours', 'listed_date', 'expire_date'
+        'category',
+        'phone',
+        'email',
+        'website',
+
+        'zip',
+        'city',
+        'state',
+        'country',
+        'street',
+        'address',
+        'business_address',
+        'latitude',
+        'longitude',
+
+        'price_range',
+        'main_image',
+        'overall_rating',
+        'review_count',
+        'review_details',
+        'features',
+        'business_hours',
+        'review_summary',
+
+        'google_id',
+        'google_reviews',
+        'google_images',
+        
+        'facebook',
+        'x',
+        'linkedin',
+        'youtube',
+        
     ];
 
     foreach ($fields as $field) {
-        if (isset($_POST['sd_' . $field])) {
-            update_post_meta($post_id, 'sd_' . $field, sanitize_text_field($_POST['sd_' . $field]));
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
         }
     }
 }

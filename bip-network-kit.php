@@ -31,11 +31,11 @@ add_action('wp_enqueue_scripts', 'sd_enqueue_cdn');
 
 // Override theme templates
 function sd_override_templates($template) {
-    if (is_singular('businesses')) {
+    if (is_singular('sd_business')) {
         return plugin_dir_path(__FILE__) . 'templates/single.php';
-    } elseif (is_post_type_archive('businesses')) {
+    } elseif (is_post_type_archive('sd_business')) {
         return plugin_dir_path(__FILE__) . 'templates/archive.php';
-    } elseif (is_tax(['business_category', 'business_tag'])) {
+    } elseif (is_tax(['sd_business_category', 'sd_business_location'])) {
         return plugin_dir_path(__FILE__) . 'templates/archive.php';
     }
     return $template;
@@ -102,11 +102,6 @@ function sd_enqueue_cdn() {
 |--------------------------------------------------------------------------
 | Helper Functions
 |--------------------------------------------------------------------------
-|
-| These utility functions are used throughout the theme/plugin to simplify
-| common operations such as fetching business meta fields and rendering
-| star ratings.
-|
 */
 
 /**
@@ -118,7 +113,7 @@ function sd_enqueue_cdn() {
  * @usage
  * $fields = sd_get_business_fields(123);
  * $fields = sd_get_business_fields(get_the_ID());
- * echo $fields['sd_phone'];
+ * echo $fields['phone'];
  */
 function sd_get_business_fields($post_id = null) {
     if (!$post_id) {
@@ -126,23 +121,38 @@ function sd_get_business_fields($post_id = null) {
     }
 
     $fields = [
-        'sd_phone',
-        'sd_email',
-        'sd_website',
-        'sd_address',
-        'sd_latitude',
-        'sd_longitude',
-        'sd_google_id',
-        'sd_overall_rating',
-        'sd_total_reviews',
-        'sd_google_reviews',
-        'sd_review_summary',
-        'sd_review_details',
-        'sd_google_images',
-        'sd_features',
-        'sd_business_hours',
-        'sd_listed_date',
-        'sd_expire_date',
+        'category',
+        'phone',
+        'email',
+        'website',
+
+        'zip',
+        'city',
+        'state',
+        'country',
+        'street',
+        'address',
+        'business_address',
+        'latitude',
+        'longitude',
+
+        'price_range',
+        'main_image',
+        'overall_rating',
+        'review_count',
+        'review_details',
+        'features',
+        'business_hours',
+        'review_summary',
+
+        'google_id',
+        'google_reviews',
+        'google_images',
+        
+        'facebook',
+        'x',
+        'linkedin',
+        'youtube',
     ];
 
     $data = [];
