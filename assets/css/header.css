@@ -37,8 +37,17 @@
 /* Header styles */
 
 
-.sd-header { 
+.sd-header-container { 
 	padding: 20px;
+	/* background: var(--primary-800); initally transparent, will add after scroll */
+
+    /* for adjusting the banner */
+    margin-bottom: -88px;
+    z-index: 9998;
+    position: sticky;
+    /* top: 0; top value will be applied from javascript managing adminbar existance */
+}
+.sd-header-container.scrolled { 
 	background: var(--primary-800);
 }
 .sd-header-inner {
@@ -49,7 +58,7 @@
 	margin: auto;
 }
 .sd-logo span {
-	font-size: 32px !important;
+	font-size: 28px !important;
 	font-weight: 700;
 	text-transform: uppercase;
     color: var(--white);
@@ -76,7 +85,8 @@
 	font-weight: 600;
 }
 .sd-menu .sd-menu-item a {
-    transition: 0.2s;
+    text-transform: uppercase;
+    font-size: var(--small);
 }
 .sd-menu .sd-menu-item:hover>a,
 .sd-menu .sd-menu-item:hover i,

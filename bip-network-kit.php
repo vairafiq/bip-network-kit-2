@@ -13,6 +13,15 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-business.php';
 
 
+// Include components
+$components = plugin_dir_path(__FILE__) . 'templates/components/*.php';
+foreach (glob($components) as $component) {
+    include_once $component;
+}
+
+
+
+// Hooks
 add_filter('template_include', 'sd_override_templates');
 add_action('wp_enqueue_scripts', 'sd_enqueue_custom_assets');
 add_action('wp_enqueue_scripts', 'sd_enqueue_cdn');
