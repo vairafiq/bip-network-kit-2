@@ -85,7 +85,6 @@ function bip_listing_description_update_prompt( $name, $address ) {
         
         Avoid any trace of robotic or overly formal language.
         
-        
         Your output should:
         
         Be shorter or equal in word count to the original.
@@ -95,7 +94,6 @@ function bip_listing_description_update_prompt( $name, $address ) {
         Always preserve the text’s intent, tone, and grammatical context (e.g., first vs. third person).
         
         Be undetectable by AI content detection tools (e.g., GPTZero, Turnitin, Copyleaks).
-        
         
         When rewriting:
         
