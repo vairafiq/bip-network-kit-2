@@ -8,7 +8,7 @@ jobs:
       matrix:
         user: [
           bipadmin@localnearmedirectory.com,
-          localservicebiznearme@localservicebiznearme.com,
+          # localservicebiznearme@localservicebiznearme.com,
           smallbusinessnearmedirectory@smallbusinessnearmedirectory.com,
           shoplocalbiznearme@shoplocalbiznearme.com,
           # ...add all 300 usernames here
