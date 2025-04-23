@@ -52,7 +52,7 @@ function sd_page_banner_shortcode($atts) {
         }
         @media (max-width: 768px) {
             .sd-page-banner-container {
-                padding: 80px 1rem;
+                padding: 120px 1rem 80px 1rem;
             }
             .sd-banner-heading {
                 font-size: 3rem;

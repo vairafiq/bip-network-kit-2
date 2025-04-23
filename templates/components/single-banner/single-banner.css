@@ -172,6 +172,8 @@
     color: var(--black) !important;
 }
 .sd-single-banner-details-contact .sd-single-banner-website a {
+    display: inline-block; /* or 'block' if needed */
+    max-width: 100%;       /* or set a specific width */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
