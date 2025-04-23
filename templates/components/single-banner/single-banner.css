@@ -171,6 +171,14 @@
     font-weight: 500;
     color: var(--black) !important;
 }
+.sd-single-banner-details-contact .sd-single-banner-website a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sd-single-banner-details-contact svg {
+    min-width: 15px !important;
+}
 /* banner content */
 
 
@@ -185,8 +193,8 @@
 }
 @media (max-width:768px) {
     .sd-single-banner-image img {
-        height: 300px;
-        min-height: 300px;
+        max-height: 250px;
+        min-height: 250px;
     }
 }
 /* banner image */
