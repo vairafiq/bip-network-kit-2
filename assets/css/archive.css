@@ -3,7 +3,7 @@
 */
 
 /* container */
-.sd-archive-page-container {
+/* .sd-archive-page-container {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 2rem;
@@ -13,14 +13,23 @@
     .sd-archive-page-container {
         grid-template-columns: 1fr;
     }
+} UNCOMMENT FOR SIDEBAR, REMOVE display none  */
+.sd-archive-page-container .sd-sidebar {
+    display: none !important;
 }
 
 .sd-business-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-content: space-around;
     gap: 1.5rem;
 }
+@media (max-width: 1024px) {
+    .sd-business-list {
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-around;
+    }
+} /* NEED TO REMOVE 1024 BREAK POINT TO ADJUST WITH SIDEBAR */
 @media (max-width: 768px) {
     .sd-business-list {
         grid-template-columns: 1fr;
