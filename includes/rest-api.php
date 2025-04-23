@@ -15,12 +15,79 @@ add_action( 'rest_api_init', 'register_api_endpoints' );
 
 
 function register_api_endpoints(){
-    register_rest_route('bip/add', '/listing/', array(
+    register_rest_route('bip/create', '/listing/', array(
         'methods' => 'POST',
         'callback' => 'bip_get_add_response',
         'permission_callback' => '__return_true',
     ));
+    register_rest_route('bip/update', '/listing/', array(
+        'methods' => 'POST',
+        'callback' => 'bip_get_update_response',
+        'permission_callback' => '__return_true',
+    ));
 }
+
+
+function bip_get_update_response( $request ) {
+    
+    $params = $request->get_params();
+
+    $network_id = $params['network_id'][0];
+    
+    $args = [
+        'post_type'      => 'sd_business',
+        'posts_per_page' => 1,
+        'meta_query'     => [
+            [
+                'key'     => 'network_id',
+                'value'   => $network_id, // Replace with the actual value
+                'compare' => '='
+            ]
+        ]
+    ];
+    
+    $query = new WP_Query($args);
+
+    if( ! $query->have_posts() ) {
+        return;
+    }
+    
+    $post = $query->posts[0];
+
+    $post_id = $post->ID;
+
+    if (!is_wp_error($post_id)) {
+
+        // Loop through all keys and save as post meta
+        foreach ( $params as $key => $value ) {
+
+            // Skip post fields
+            if ( in_array( $key, ['name'] ) ) {
+                continue;
+            }
+
+            // If value is array, store first item or serialize
+            if ( is_array($value) ) {
+                $value = count($value) === 1 ? $value[0] : maybe_serialize($value);
+            }
+
+            update_post_meta($post_id, $key, $value);
+        }
+
+        $post_link = get_permalink($post_id);
+
+        return rest_ensure_response([
+            'link' => $post_link,
+            'post_id' => $post_id,
+        ]);
+
+    } else {
+        return rest_ensure_response([
+            'error' => true,
+        ]);
+    }
+}
+
 
 function bip_get_add_response( $request ) {
     
