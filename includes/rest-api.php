@@ -32,7 +32,7 @@ function bip_get_update_response( $request ) {
     
     $params = $request->get_params();
 
-    $network_id = $params['network_id'][0];
+    $network_id = $params['network_id'];
     
     $args = [
         'post_type'      => 'sd_business',
