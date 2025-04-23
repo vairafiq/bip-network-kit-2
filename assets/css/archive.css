@@ -1,37 +1,6 @@
-:root {
-    --primary-800: #003C43;
-    --primary-600: #135D66;
-    --primary-400: #77B0AA;
-    --primary-200: #E3FEF7;
-
-    --accent: #ff9800;
-    
-    --white: #FFFFFF;
-    --light: #c3c3c3;
-    --gray: #787878;
-    --black: #000000;
-
-
-    --h1: 2rem;
-    --h2: 1.8rem;
-    --h3: 1.4rem;
-    --h4: 1.25rem;
-    --h5: 1.125rem;
-    --h6: 1rem;
-    --p: 1rem;
-    --small: 14px;
-
-    --section-padding: 2rem 1rem;
-    --container-width: 1300px;
-}
-
-@media (max-width: 768px) {
-    :root {
-        --h1: 1.5rem;
-        --h2: 1.4rem;
-        --h3: 1.2rem;
-    }
-}
+/* 
+* @template archive
+*/
 
 /* container */
 .sd-archive-page-container {
@@ -69,33 +38,6 @@
 /* 
  * *  Content Archive / Archive Item
 */
-
-
-
-/* overall rating */
-.sd-overall-rating {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3em;
-    font-size: var(--small)
-}
-.sd-overall-rating .fa-star,
-.sd-overall-rating .fa-star-half-alt {
-    color: var(--light); /* Default filled color */
-}
-
-.sd-overall-rating .sd-star-filled {
-    color: var(--primary-600); /* Green for filled stars */
-}
-.sd-overall-count {
-    font-weight: 500;
-    font-size: var(--small);
-}
-.sd-review-count {
-    color: var(--gray);
-    font-size: var(--small);
-}
-/* overall rating */
 
 
 
