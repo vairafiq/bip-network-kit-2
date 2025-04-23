@@ -53,6 +53,37 @@ jQuery(document).ready(function($) {
             }
         });
     }
+
+
+
+
+    const handleHeaderForAdminBar = function () {
+        const adminBar = $('#wpadminbar');
+        const header = $('.sd-header-container');
+
+        if (adminBar.length) {
+            header.css('top', adminBar.outerHeight() + 'px');
+        } else {
+            header.css('top', '0');
+        }
+    }
+
+
+
+
+    const adjustHeaderBackgroundOnScroll = function () {
+        const header = $('.sd-header-container');
+
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+            if (scrollTop > 0) {
+                header.addClass('scrolled');
+            } else {
+                header.removeClass('scrolled');
+            }
+        });
+    }
     
     
     
@@ -60,9 +91,15 @@ jQuery(document).ready(function($) {
     // Run on load and resize
     handleMobileMenu();
     handleMobileSubmenu();
+    handleActiveItem();
+    handleHeaderForAdminBar();
+    adjustHeaderBackgroundOnScroll();
     $(window).on('resize', function () {
         handleMobileMenu();
         handleMobileSubmenu();
+        handleActiveItem();
+        handleHeaderForAdminBar();
+        adjustHeaderBackgroundOnScroll();
     });
 
 
