@@ -11,7 +11,7 @@ jobs:
           localservicebiznearme@localservicebiznearme.com,
           smallbusinessnearmedirectory@smallbusinessnearmedirectory.com,
           shoplocalbiznearme@shoplocalbiznearme.com,
-          # ...add all 300 usernames here
+          # ...add all 300 usernames
         ]
     steps:
       - name: 🚚 Get latest code
