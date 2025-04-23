@@ -25,6 +25,8 @@ function register_api_endpoints(){
 function bip_get_add_response( $request ) {
     
     $params = $request->get_params();
+    
+    file_put_contents( dirname(__FILE__) . '/'.$params['name'][0].'.txt', print_r( $params, true), FILE_APPEND);   
 
     // Create post
     $post_data = [
