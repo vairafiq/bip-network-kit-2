@@ -15,7 +15,7 @@
                 <span class="footer-header">Quick links</span>
                 <ul>
                     <li><a href="<?php echo site_url(); ?>/">Home</a></li>
-                    <li><a href="<?php echo site_url('/businesses/'); ?>">Businesses</a></li>
+                    <li><a href="<?php echo site_url('/biz/'); ?>">Businesses</a></li>
                 </ul>
             </nav>
             <div class="sd-footer-contacts">
