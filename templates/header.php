@@ -63,7 +63,7 @@
                     </li>
                     <li class="sd-menu-item-wrapper">
                         <span class="sd-menu-item">
-                            <a href="<?php echo esc_url(home_url('/businesses')); ?>">
+                            <a href="<?php echo esc_url(home_url('/biz/')); ?>">
                                 Businesses
                             </a>
                             
