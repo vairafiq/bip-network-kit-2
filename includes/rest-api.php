@@ -29,7 +29,7 @@ function bip_get_add_response( $request ) {
     // Create post
     $post_data = [
         'post_title'   => sanitize_text_field($params['name'][0] ?? 'Untitled'),
-        'post_type'    => 'post', // or your CPT like 'gd_restaurants'
+        'post_type'    => 'sd_business', // or your CPT like 'gd_restaurants'
         'post_status'  => 'publish',
         'post_content' => '',
     ];
