@@ -12,6 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 // Include custom post types
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-business.php';
 require_once plugin_dir_path(__FILE__) . 'includes/rest-api.php';
+require_once plugin_dir_path(__FILE__) . 'includes/helper.php';
 
 
 // Include components
