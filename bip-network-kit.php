@@ -14,7 +14,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/cpt-business.php';
 
 
 // Include components
-$components = plugin_dir_path(__FILE__) . 'templates/components/*.php';
+$components = plugin_dir_path(__FILE__) . 'templates/components/*/*.php';
 foreach (glob($components) as $component) {
     include_once $component;
 }
@@ -37,6 +37,10 @@ function sd_override_templates($template) {
         return plugin_dir_path(__FILE__) . 'templates/archive.php';
     } elseif (is_tax(['sd_business_category', 'sd_business_location'])) {
         return plugin_dir_path(__FILE__) . 'templates/archive.php';
+    } elseif (is_front_page()) {
+        return plugin_dir_path(__FILE__) . 'templates/homepage.php';
+    } elseif (is_404()) {
+        return plugin_dir_path(__FILE__) . 'templates/404.php';
     }
     return $template;
 }
@@ -163,58 +167,6 @@ function sd_get_business_fields($post_id = null) {
     }
 
     return $data;
-}
-
-
-/**
- * Generate FontAwesome star icons based on rating.
- *
- * Displays full stars, optional half star, and empty stars up to 5 total with overall count, review count.
- *
- * @param float $rating A rating number between 0 and 5.
- * @param int $total_review The total number of reviews.
- * @return string HTML string of star icons and counts.
- *
- * @usage
- * echo sd_get_overall_rating(4.3, 30);
- */
-function sd_get_overall_rating($rating, $total_review) {
-    $rating = floatval($rating);
-    $full_stars = floor($rating);
-    $half_star = ($rating - $full_stars) >= 0.5;
-    $empty_stars = 5 - $full_stars - ($half_star ? 1 : 0);
-
-    $stars_html = '';
-
-    $stars_html .= '<span class="sd-overall-rating">';
-
-    $stars_html .= '<span class="sd-star-rating">';
-    for ($i = 1; $i <= $full_stars; $i++) { // full stars
-        $stars_html .= '<i class="fas fa-star sd-star-filled"></i>';
-    }
-
-    if ($half_star) { // half star
-        $stars_html .= '<i class="fas fa-star-half-alt sd-star-filled"></i>';
-    }
-
-    for ($i = 1; $i <= $empty_stars; $i++) { // empty stars
-        $stars_html .= '<i class="far fa-star"></i>';
-    }
-    $stars_html .= '</span>';
-
-
-    $stars_html .= '<span class="sd-overall-count">';
-    $stars_html .= $rating; // rating number
-    $stars_html .= '</span>';
-
-    $stars_html .= '<span class="sd-review-count">';
-    $stars_html .= '('.$total_review.' reviews)'; // review count
-    $stars_html .= '</span>';
-
-    $stars_html .= '</span>';
-
-
-    return $stars_html;
 }
 
 

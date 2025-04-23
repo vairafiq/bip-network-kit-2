@@ -1,39 +1,6 @@
-:root {
-    --primary-800: #003C43;
-    --primary-600: #135D66;
-    --primary-400: #77B0AA;
-    --primary-200: #E3FEF7;
-
-    --accent: #ff9800;
-    
-    --white: #FFFFFF;
-    --light: #c3c3c3;
-    --gray: #787878;
-    --black: #000000;
-
-
-    --h1: 2rem;
-    --h2: 1.8rem;
-    --h3: 1.4rem;
-    --h4: 1.25rem;
-    --h5: 1.125rem;
-    --h6: 1rem;
-    --p: 1rem;
-    --small: 14px;
-
-    --section-padding: 2rem 1rem;
-    --container-width: 1300px;
-}
-
-@media (max-width: 768px) {
-    :root {
-        --h1: 1.5rem;
-        --h2: 1.4rem;
-        --h3: 1.2rem;
-    }
-}
-
-
+/* 
+* @template footer
+*/
 
 
 .sd-footer {
@@ -136,5 +103,8 @@
     }
     .sd-footer-main {
         padding-bottom: 2rem;
+    }
+    .sd-footer-bio {
+        min-width: 300px;
     }
 }
