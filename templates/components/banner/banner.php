@@ -54,6 +54,10 @@ function sd_page_banner_shortcode($atts) {
             .sd-page-banner-container {
                 padding: 80px 1rem;
             }
+            .sd-banner-heading {
+                font-size: 3rem;
+                font-weight: 600;
+            }
         }
     </style>
     <?php
