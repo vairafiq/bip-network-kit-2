@@ -11,15 +11,12 @@
  * @usage
  * [sd_overall_rating rating="4.3" review_count="30"]
  */
-function sd_overall_rating_shortcode($atts) {
+function sd_overall_rating_shortcode() {
 
-    $atts = shortcode_atts([
-        'rating'        => 0,
-        'review_count'  => 0,
-    ], $atts, 'sd_overall_rating');
+    $post_id        = get_the_ID();
+    $rating         = get_post_meta($post_id, 'overall_rating', true);
+    $review_count   = get_post_meta($post_id, 'review_count', true);
 
-    
-    $rating = floatval($atts['rating']);
     $full_stars = floor($rating);
     $half_star = ($rating - $full_stars) >= 0.5;
     $empty_stars = 5 - $full_stars - ($half_star ? 1 : 0);
@@ -48,7 +45,7 @@ function sd_overall_rating_shortcode($atts) {
     $stars_html .= '</span>';
 
     $stars_html .= '<span class="sd-review-count">';
-    $stars_html .= '('.$atts['review_count'].' reviews)'; // review count
+    $stars_html .= '('.$review_count.' reviews)'; // review count
     $stars_html .= '</span>';
 
     $stars_html .= '</span>';

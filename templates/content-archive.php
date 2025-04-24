@@ -111,7 +111,7 @@
                 <!-- overall rating -->
                 <!-- <span class="sd-overall-rating"> -->
                 <?php if( $overall_rating) {
-                    echo do_shortcode('[sd_overall_rating rating="'.$overall_rating.'" review_count="'.$review_count.'"]');
+                    echo do_shortcode('[sd_overall_rating]');
                 } ?>
                 <!-- </span> -->
 
