@@ -20,8 +20,11 @@
     --p: 1rem;
     --small: 14px;
 
-    --section-padding: 2rem 1rem;
+    --p-weight: 300;
+
+    --edge-padding: 2rem 1rem;
     --container-width: 1200px;
+    --section-spacing: 2rem 0;
 }
 
 @media (max-width: 768px) {
@@ -40,7 +43,10 @@ body, * {
 .sd-container {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: var(--section-padding);
+    padding: var(--edge-padding);
+}
+.sdl-section-space {
+    padding: var(--section-spacing);
 }
 
 

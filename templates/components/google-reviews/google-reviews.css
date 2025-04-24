@@ -1,0 +1,30 @@
+.sd-google-review-item {
+    margin-top: 2rem;
+}
+.sd-google-review-head {
+    display: flex;
+    gap: 0.5rem;
+}
+.sd-google-review-infos .user-name {
+    font-weight: 500;
+    color: var(--black);
+}
+.sd-google-review-infos .user-tag,
+.sd-google-review-infos .review-time {
+    color: var(--gray);
+}
+.sd-google-review-text {
+    color: var(--black);
+    font-weight: var(--p-weight);
+    margin-top: 0.5rem;
+}
+.sd-google-review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.sd-google-review-avatar img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}

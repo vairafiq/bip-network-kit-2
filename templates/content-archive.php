@@ -4,68 +4,10 @@
 
     $categories         = get_the_terms(get_the_ID(), 'business_category');
     $category           = $business['category'] ?? '';
-    $phone              = $business['phone'] ?? '';
-    $email              = $business['email'] ?? '';
-    $website            = $business['website'] ?? '';
-    $zip                = $business['zip'] ?? '';
-    $city               = $business['city'] ?? '';
-    $state              = $business['state'] ?? '';
-    $country            = $business['country'] ?? '';
-    $street             = $business['street'] ?? '';
     $address            = $business['address'] ?? '';
-    $business_address   = $business['business_address'] ?? '';
-    $latitude           = $business['latitude'] ?? '';
-    $longitude          = $business['longitude'] ?? '';
-    $price_range        = $business['price_range'] ?? '';
     $main_image         = $business['main_image'] ?? '';
     $overall_rating     = $business['overall_rating'] ?? '';
     $review_count       = $business['review_count'] ?? '';
-    $review_details     = $business['review_details'] ?? '';
-    $features           = $business['features'] ?? '';
-    $business_hours     = $business['business_hours'] ?? '';
-    $review_summary     = $business['review_summary'] ?? '';
-    $google_id          = $business['google_id'] ?? '';
-    $google_reviews     = $business['google_reviews'] ?? '';
-    $google_images      = $business['google_images'] ?? '';
-    $facebook           = $business['facebook'] ?? '';
-    $x                  = $business['x'] ?? '';
-    $linkedin           = $business['linkedin'] ?? '';
-    $youtube            = $business['youtube'] ?? '';
-
-
-
-    // prepare google images
-    $google_images = json_decode( $google_images );
-    $image_urls = [];
-
-    if ( ! empty( $google_images ) ) {
-        foreach ($google_images as $subArray) {
-            if ( is_string( $subArray ) ) {
-                $image_urls[] = $subArray;
-            } else {
-                foreach ($subArray as $singleImageURL) {
-                    $image_urls[] = is_string( $singleImageURL ) ? $singleImageURL : $singleImageURL->url;
-                }
-            }
-        }
-    }
-
-    // Validate and set main_image
-    if ( ! empty( $main_image ) && @fopen( $main_image, 'r' ) ) {
-        $image_urls[] = $main_image;
-    } elseif ( ! empty( $image_urls[0] ) && @fopen( $image_urls[0], 'r' ) ) {
-        $main_image = $image_urls[0];
-        update_post_meta( $post_id, 'main_image', $main_image );
-    } elseif ( ! empty( $image_urls[1] ) && @fopen( $image_urls[1], 'r' ) ) {
-        $main_image = $image_urls[1];
-        update_post_meta( $post_id, 'main_image', $main_image );
-    } elseif ( ! empty( $image_urls[2] ) && @fopen( $image_urls[2], 'r' ) ) {
-        $main_image = $image_urls[2];
-        update_post_meta( $post_id, 'main_image', $main_image );
-    } else {
-        $main_image = 'https://bippermedia.com/wp-content/uploads/2024/04/working-2023-11-27-04-57-54-utc-scaled.jpg';
-    }
-
 
     // Replace dimensions in URL
     $image_width = wp_is_mobile() ? 360 : 360;

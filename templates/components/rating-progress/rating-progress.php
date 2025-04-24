@@ -32,6 +32,8 @@ function sd_rating_progress_shortcode() {
     <div class="sd-rating-progress-wrapper" style="width: 100%;">
 
         <?php echo do_shortcode('[sd_overall_rating]'); ?>
+        <br>
+        <br>
 
         <div class="sd-rating-progress-container">
             <?php foreach ($review_data as $star => $count):
@@ -48,6 +50,9 @@ function sd_rating_progress_shortcode() {
     </div>
 
     <style>
+        .sd-rating-progress-wrapper {
+            text-align: center;
+        }
         .sd-rating-progress-bar-fill {
             background: var(--primary-400);
         }

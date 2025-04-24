@@ -52,10 +52,13 @@
 .sd-single-banner-image {
     flex-grow: 1;
 }
-@media (max-width:768px) {
+@media (max-width:1024px) {
     .sd-single-banner-content {
         flex-direction: column-reverse;
         gap: 1rem;
+    }
+    .sd-single-banner-details {
+        max-width: 100%;
     }
 }
 /* containers */
@@ -138,6 +141,7 @@
 }
 .sd-single-banner-details-title {
     font-size: var(--h2);
+    color: var(--black);
     line-height: 1;
     margin: 0 !important;
     margin-bottom: 1rem !important;
@@ -149,7 +153,9 @@
     background-color: var(--light);
     margin: 1rem 0;
 }
-.sd-single-banner-details-content p{
+.sd-single-banner-details-text p{
+    font-weight: var(--p-weight);
+    color: var(--black);
     margin-bottom: 0 !important;
 }
 .sd-single-banner-details-content a.read-more-toggle {
@@ -168,12 +174,13 @@
 }
 .sd-single-banner-details-contact a,
 .sd-single-banner-details-contact span {
+    text-decoration: none;
     font-weight: 500;
     color: var(--black) !important;
 }
 .sd-single-banner-details-contact .sd-single-banner-website a {
     display: inline-block; /* or 'block' if needed */
-    max-width: 100%;       /* or set a specific width */
+    max-width: 300px;       /* or set a specific width */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
