@@ -2,7 +2,12 @@
 
 function sd_google_reviews_shortcode() {
     $post_id          = get_the_ID();
-    $google_reviews   = get_post_meta($post_id, 'google_reviews', true);
+    $google_reviews   = get_post_meta($post_id, 'google_reviews', true) ?? '';
+    
+    if(empty($google_reviews)) {
+        return;
+    }
+    
     $google_reviews   = json_decode($google_reviews, true);
     $google_reviews   = $google_reviews['reviews'];
 

@@ -14,3 +14,7 @@
     <div><?php echo do_shortcode( '[sd_google_reviews]' ); ?></div>
     
 </div>
+
+
+
+<?php echo do_shortcode('[sd_businesses query="related" title="More from this category" description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores magnam excepturi dicta quod illum. Blanditiis?"]'); ?>
