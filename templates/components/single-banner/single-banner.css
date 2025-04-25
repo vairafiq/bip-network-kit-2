@@ -42,25 +42,38 @@
 
 /* containers */
 .sd-single-banner-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 34% 1fr;
     gap: 2rem;
-    justify-content: space-between;
+    align-items: stretch;
 }
+
 .sd-single-banner-details {
-    max-width: 400px;
+    grid-column: 1;
 }
+
 .sd-single-banner-image {
-    flex-grow: 1;
+    grid-column: 2;
 }
-@media (max-width:1024px) {
+
+@media (max-width: 1024px) {
     .sd-single-banner-content {
-        flex-direction: column-reverse;
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto;
         gap: 1rem;
     }
+
     .sd-single-banner-details {
-        max-width: 100%;
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .sd-single-banner-image {
+        grid-row: 1;
+        grid-column: 1;
     }
 }
+
 /* containers */
 
 
@@ -199,6 +212,7 @@
     height: 500px;
     min-height: 500px;
     border-radius: 10px;
+    object-fit: cover;
 }
 @media (max-width:768px) {
     .sd-single-banner-image img {

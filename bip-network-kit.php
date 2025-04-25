@@ -111,66 +111,30 @@ function sd_enqueue_cdn() {
 */
 
 /**
- * Get all custom business fields for a post.
+ * Get custom post meta fields.
  *
- * @param int|null $post_id Optional. The post ID. Defaults to current post.
- * @return array An associative array of business meta field values.
+ * @param string|null $field   Optional. Field name. If null, returns object of all fields.
+ * @param int|null    $post_id Optional. Post ID. Defaults to current post.
  *
- * @usage
- * $fields = sd_get_business_fields(123);
- * $fields = sd_get_business_fields(get_the_ID());
- * echo $fields['phone'];
+ * @return mixed
  */
-function sd_get_business_fields($post_id = null) {
+function sd_get_post_data($field = null, $post_id = null) {
     if (!$post_id) {
         $post_id = get_the_ID();
     }
 
-    $fields = [
-        'category',
-        'phone',
-        'email',
-        'website',
+    // Return single field
+    if ($field) {
+        return get_post_meta($post_id, $field, true);
+    }
 
-        'zip',
-        'city',
-        'state',
-        'country',
-        'street',
-        'address',
-        'business_address',
-        'latitude',
-        'longitude',
-
-        'price_range',
-        'main_image',
-        'overall_rating',
-        'review_count',
-        'review_details',
-        'features',
-        'business_hours',
-        'review_summary',
-
-        'google_id',
-        'google_reviews',
-        'google_images',
-        
-        'facebook',
-        'x',
-        'linkedin',
-        'youtube',
-    ];
-
+    // Return all meta fields with first values
+    $raw_meta = get_post_meta($post_id);
     $data = [];
 
-    foreach ($fields as $field) {
-        $value = get_post_meta($post_id, $field, true);
-        $data[$field] = $value;
+    foreach ($raw_meta as $key => $value) {
+        $data[$key] = maybe_unserialize($value[0]); // Get just the actual value
     }
 
     return $data;
 }
-
-
-
-

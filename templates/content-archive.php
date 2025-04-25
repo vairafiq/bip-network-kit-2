@@ -1,13 +1,11 @@
 <?php
-    
-    $business = sd_get_business_fields( get_the_ID() );
 
     $categories         = get_the_terms(get_the_ID(), 'business_category');
-    $category           = $business['category'] ?? '';
-    $address            = $business['address'] ?? '';
-    $main_image         = $business['main_image'] ?? '';
-    $overall_rating     = $business['overall_rating'] ?? '';
-    $review_count       = $business['review_count'] ?? '';
+    $category           = sd_get_post_data('category') ?? '';
+    $address            = sd_get_post_data('address') ?? '';
+    $main_image         = sd_get_post_data('main_image') ?? '';
+    $overall_rating     = sd_get_post_data('overall_rating') ?? '';
+    $review_count       = sd_get_post_data('review_count') ?? '';
 
     // Replace dimensions in URL
     $image_width = wp_is_mobile() ? 360 : 360;
