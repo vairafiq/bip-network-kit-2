@@ -35,7 +35,10 @@
     }
 }
 
-
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
 body, * {
     font-family: "Outfit", sans-serif;
 }
