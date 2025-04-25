@@ -58,12 +58,12 @@ function sd_register_business_taxonomies() {
         'menu_name'         => 'Categories',
     );
 
-    register_taxonomy('business_category', 'sd_business', array(
+    register_taxonomy('sd_business_category', 'sd_business', array(
         'hierarchical'      => true,
         'labels'            => $category_labels,
         'show_ui'           => true,
         'show_admin_column' => true,
-        'rewrite'           => array('slug' => 'sd_business_category'),
+        'rewrite'           => array('slug' => 'biz-category'),
         'show_in_rest'      => true,
     ));
 
@@ -82,12 +82,12 @@ function sd_register_business_taxonomies() {
         'menu_name'         => 'Locations',
     );
 
-    register_taxonomy('business_location', 'sd_business', array(
+    register_taxonomy('sd_business_location', 'sd_business', array(
         'hierarchical'      => true,
         'labels'            => $location_labels,
         'show_ui'           => true,
         'show_admin_column' => true,
-        'rewrite'           => array('slug' => 'sd_business_location'),
+        'rewrite'           => array('slug' => 'biz-location'),
         'show_in_rest'      => true,
     ));
     

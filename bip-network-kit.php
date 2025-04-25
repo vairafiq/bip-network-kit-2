@@ -28,7 +28,7 @@ add_filter('template_include', 'sd_override_templates');
 add_action('wp_enqueue_scripts', 'sd_enqueue_custom_assets');
 add_action('wp_enqueue_scripts', 'sd_enqueue_cdn');
 
-
+flush_rewrite_rules();
 
 
 // Override theme templates

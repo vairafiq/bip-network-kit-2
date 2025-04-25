@@ -7,7 +7,7 @@ function sd_single_banner_shortcode() {
     $business = sd_get_post_data();
     
     $content = get_the_content();
-    $categories         = get_the_terms(get_the_ID(), 'business_category');
+    $categories         = get_the_terms(get_the_ID(), 'sd_business_category');
     $category           = $business['category'] ?? '';
     $phone              = $business['phone'] ?? '';
     $email              = $business['email'] ?? '';

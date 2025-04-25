@@ -1,6 +1,6 @@
 <?php
 
-    $categories         = get_the_terms(get_the_ID(), 'business_category');
+    $categories         = get_the_terms(get_the_ID(), 'sd_business_category');
     $category           = sd_get_post_data('category') ?? '';
     $address            = sd_get_post_data('address') ?? '';
     $main_image         = sd_get_post_data('main_image') ?? '';
