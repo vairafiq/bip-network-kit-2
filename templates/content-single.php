@@ -17,4 +17,4 @@
 
 
 
-<?php echo do_shortcode('[sd_businesses query="related" title="More from this category" description="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores magnam excepturi dicta quod illum. Blanditiis?"]'); ?>
+<?php echo do_shortcode('[sd_businesses query="related" title="More from this category" description="Discover more businesses from this category to connect with trusted service providers and explore your options easily."]'); ?>
