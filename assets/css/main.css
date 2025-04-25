@@ -7,9 +7,10 @@
     --accent: #ff9800;
     
     --white: #FFFFFF;
+    --lighter: #f4f4f4;
     --light: #e0e0e0;
     --gray: #787878;
-    --black: #000000;
+    --black: #333333;
 
     --h1: 2.5rem;
     --h2: 1.8rem;
@@ -20,9 +21,11 @@
     --p: 1rem;
     --small: 14px;
 
+    --h1-weight: 800;
+    --h2-weight: 600;
     --p-weight: 300;
 
-    --edge-padding: 2rem 1rem;
+    --edge-padding: 1rem 1rem;
     --container-width: 1200px;
     --section-spacing: 2rem 0;
 }
@@ -42,6 +45,10 @@ body {
 body, * {
     font-family: "Outfit", sans-serif;
 }
+
+
+
+
 
 .sd-container {
     max-width: var(--container-width);

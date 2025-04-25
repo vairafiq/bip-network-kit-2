@@ -9,11 +9,11 @@
     gap: 2rem;
     grid-template-columns: 34% 1fr;
 }
-.sd-rating-progress-wrapper {
+.sd-rating-progress {
     position: sticky;
     top: 2rem;
 }
-.admin-bar .sd-rating-progress-wrapper {
+.admin-bar .sd-rating-progress {
     position: sticky;
     top: 4rem;
 }
@@ -22,10 +22,10 @@
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    .sd-rating-progress-wrapper {
+    .sd-rating-progress {
         position: static;
     }
-    .admin-bar .sd-rating-progress-wrapper {
+    .admin-bar .sd-rating-progress {
         position: static;
     }
 }

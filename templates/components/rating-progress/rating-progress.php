@@ -1,14 +1,14 @@
 <?php
 function sd_rating_progress_shortcode() {
     $post_id = get_the_ID();
-    $details = get_post_meta($post_id, 'review_details', true);
+    $review_details = get_post_meta($post_id, 'review_details', true);
 
-    if (empty($details)) {
-        return '<p>No review data available.</p>';
+    if (empty($review_details)) {
+        return;
     }
 
     // Extract star ratings
-    preg_match_all('/(\d) Star Reviews: (\d+)/', $details, $matches, PREG_SET_ORDER);
+    preg_match_all('/(\d) Star Reviews: (\d+)/', $review_details, $matches, PREG_SET_ORDER);
 
     if (empty($matches)) {
         return '<p>Invalid review format.</p>';
@@ -29,7 +29,7 @@ function sd_rating_progress_shortcode() {
     ob_start();
     ?>
     
-    <div class="sd-rating-progress-wrapper" style="width: 100%;">
+    <div class="sd-rating-progress" style="width: 100%;">
 
         <?php echo do_shortcode('[sd_overall_rating]'); ?>
         <br>
@@ -50,7 +50,7 @@ function sd_rating_progress_shortcode() {
     </div>
 
     <style>
-        .sd-rating-progress-wrapper {
+        .sd-rating-progress {
             text-align: center;
         }
         .sd-rating-progress-bar-fill {
