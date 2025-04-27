@@ -80,9 +80,6 @@ function sd_businesses_shortcode($atts) {
     ob_start(); ?>
     <link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) . '../../../assets/css/archive.css'; ?>">
     <style>
-        .sd-businesses {
-            padding: var(--section-spacing);
-        }
         .sd-businesses-title {
             font-size: var(--h2);
             font-weight: var(--h2-weight);

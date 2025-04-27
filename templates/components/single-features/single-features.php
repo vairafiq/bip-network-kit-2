@@ -13,10 +13,6 @@
 
     ob_start();
     ?>
-    <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) . 'single-features.css'; ?>">
-    <!-- CSS -->
-
 
     <div class="sd-single-features">
         <div class="sd-single-features-container">
@@ -57,9 +53,6 @@
 
 
     <style>
-    .sd-single-features {
-        padding: var(--section-spacing);
-    }
     .sd-single-features-title {
         font-size: var(--h2);
         font-weight: var(--h2-weight);
@@ -114,10 +107,6 @@
     }
     </style>
 
-
-    <!-- JS -->
-    <script src="<?php echo plugin_dir_url( __FILE__ ) . 'single-features.js'; ?>"></script>
-    <!-- JS -->
     <?php return ob_get_clean();
  }
  add_shortcode('sd_single_features', 'sd_single_features_shortcode');

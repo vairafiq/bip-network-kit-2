@@ -55,6 +55,7 @@ body, * {
     margin: 0 auto;
     padding: var(--edge-padding);
 }
+section,
 .sdl-section-space {
     padding: var(--section-spacing);
 }

@@ -4,7 +4,8 @@
 
 
 /* SINGLE LAYOUT */
-.sdl-review-section {
+.sdl-review-section,
+.sdl-address-section {
     display: grid;
     gap: 2rem;
     grid-template-columns: 34% 1fr;
@@ -18,7 +19,8 @@
     top: 4rem;
 }
 @media (max-width:1024px) {
-    .sdl-review-section {
+    .sdl-review-section,
+    .sdl-address-section {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
