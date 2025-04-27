@@ -1,4 +1,13 @@
-<?php include plugin_dir_path(__FILE__) . '/header.php'; ?>
+
+<?php
+$site_title = get_bloginfo('name');
+echo do_shortcode('[sd_header 
+    image="https://localnearmedirectory.com/wp-content/uploads/2025/04/banner2-scaled.webp"
+    heading="Best Local Businesses" 
+    sub-heading="Explore the Best Local Businesses in your area" 
+    description="Your trusted online guide to discovering the best local businesses around you. Whether you are in the heart of Austin or just exploring, we help you find top-rated services, restaurants, shops, and more all in one place, tailored to your needs."]');
+?>
+
 
 <main class="sd-archive">
     <section class="sd-container">
