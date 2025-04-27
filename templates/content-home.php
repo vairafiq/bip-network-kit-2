@@ -4,6 +4,17 @@
     
 </section>
 
+
+<section>
+
+    <?php echo do_shortcode('[sd_businesses query="recent" count="6" title="Recent Published Businesses" description="Discover recently added businesses to connect with trusted service providers and explore your options easily."]'); ?>
+
+</section>
+
+
+
+
+
 <style>
     .sd-home h2 {
         font-size: var(--h2);

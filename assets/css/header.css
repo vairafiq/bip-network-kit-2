@@ -15,7 +15,8 @@
 .sd-header-container:not(.header-single) {
     margin-bottom: -88px;
     z-index: 9998;
-    position: sticky;
+    position: fixed;
+    width: 100%;
 }
 /* adjust background */
 .sd-header-container.scrolled,

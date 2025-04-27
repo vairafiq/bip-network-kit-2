@@ -49,6 +49,7 @@ function sd_businesses_shortcode($atts) {
     ];
 
     // If "related", limit by category
+    $term = '';
     if ($atts['query'] == 'related') {
         if (!empty($atts['category'])) {
             $term = get_term_by('slug', $atts['category'], $taxonomy);
@@ -79,6 +80,39 @@ function sd_businesses_shortcode($atts) {
 
     ob_start(); ?>
     <link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) . '../../../assets/css/archive.css'; ?>">
+
+    <?php
+    if ($query->have_posts()) {
+        echo '<div class="sd-businesses">';
+
+        if( !empty($atts['title']) ) {
+            echo '<h2 class="sd-businesses-title">'.$atts['title'].'</h2>';
+            echo '<p class="sd-businesses-description">'.$atts['description'].'</p>';
+        }
+
+        echo '<div class="sd-queried-business-list">';
+        while ($query->have_posts()) {
+            $query->the_post();
+            include plugin_dir_path(__FILE__) . '../../../templates/content-archive.php';
+        }
+        echo '</div>';
+        
+        if($term) {
+            echo '<a class="sd-btn-primary sd-businesses-all-btn" href="'.$term_link.'">'.$term_name.'</a>';
+        } else {
+            echo '<a class="sd-btn-primary sd-businesses-all-btn" href="'.site_url('/biz/').'">See All Businesses</a>';
+        }
+
+        echo '</div>';
+        wp_reset_postdata();
+    } else {
+        if(isset($_GET['debug'])) {
+            echo 'No business found!';
+        }
+    }
+
+
+    ?>
     <style>
         .sd-businesses-title {
             font-size: var(--h2);
@@ -119,35 +153,7 @@ function sd_businesses_shortcode($atts) {
             text-align: center !important;
         }
     </style>
-
     <?php
-    if ($query->have_posts()) {
-        echo '<div class="sd-businesses">';
-
-        if( !empty($atts['title']) ) {
-            echo '<h2 class="sd-businesses-title">'.$atts['title'].'</h2>';
-            echo '<p class="sd-businesses-description">'.$atts['description'].'</p>';
-        }
-
-        echo '<div class="sd-queried-business-list">';
-        while ($query->have_posts()) {
-            $query->the_post();
-            include plugin_dir_path(__FILE__) . '../../../templates/content-archive.php';
-        }
-        echo '</div>';
-        
-        if($term) {
-            echo '<a class="sd-btn-primary sd-businesses-all-btn" href="'.$term_link.'">'.$term_name.'</a>';
-        }
-
-        echo '</div>';
-        wp_reset_postdata();
-    } else {
-        if(isset($_GET['debug'])) {
-            echo 'No business found!';
-        }
-    }
-
     return ob_get_clean();
 }
 add_shortcode('sd_businesses', 'sd_businesses_shortcode');
