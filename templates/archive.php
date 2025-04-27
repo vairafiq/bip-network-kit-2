@@ -14,15 +14,27 @@ echo do_shortcode('[sd_header
 
         <div class="sd-archive-page-container">
 
-            <div class="sd-sidebar" style="border: 1px solid #ccc; padding: 20px; background-color: #f9f9f9;">
-                Filter
+            <div class="sd-sidebar">
+                <?php echo do_shortcode('[sd_taxonomy_links]'); ?>
             </div>
 
             <div class="sd-archive-wrapper">
 
                 <!-- Archive header -->
                 <div class="sd-archive-header">
-
+                    <?php
+                    if (is_tax('sd_business_category')) {
+                        echo '<h2 class="sd-archive-title">' . single_term_title('', false) . 's</h2>';
+                    } elseif (is_tax('sd_business_location')) {
+                        echo '<h2 class="sd-archive-title">Businesses in ' . single_term_title('', false) . '</h2>';
+                    } elseif (is_post_type_archive('sd_business')) {
+                        echo '<h2 class="sd-archive-title">' . post_type_archive_title('', false) . '</h2>';
+                    } elseif (is_search()) {
+                        echo '<h2 class="sd-archive-title">Search results for: ' . get_search_query() . '</h2>';
+                    } else {
+                        echo '<h2 class="sd-archive-title">' . get_the_archive_title() . '</h2>';
+                    }
+                    ?>
                 </div>
 
                 <!-- Business list starts here -->

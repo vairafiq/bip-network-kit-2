@@ -3,7 +3,7 @@
 */
 
 /* container */
-/* .sd-archive-page-container {
+.sd-archive-page-container {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 2rem;
@@ -13,14 +13,23 @@
     .sd-archive-page-container {
         grid-template-columns: 1fr;
     }
-} UNCOMMENT FOR SIDEBAR, REMOVE display none  */
+}
 .sd-archive-page-container .sd-sidebar {
-    display: none !important;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* padding: 1rem; */
+    /* border-radius: 10px; */
+    max-height: 100vh;
+    border-right: 1px solid var(--lighter);
+    position: sticky;
+    top: 100px;
+}
+.admin-bar .sd-archive-page-container .sd-sidebar {
+    top: 130px;
 }
 
 .sd-business-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     justify-content: space-around;
     gap: 1.5rem;
 }
@@ -29,13 +38,23 @@
         grid-template-columns: repeat(2, 1fr);
         justify-content: space-around;
     }
-} /* NEED TO REMOVE 1024 BREAK POINT TO ADJUST WITH SIDEBAR */
+} 
+
+.sd-archive-title {
+    font-size: var(--h2);
+    font-weight: var(--h2-weight);
+}
 @media (max-width: 768px) {
     .sd-business-list {
         grid-template-columns: 1fr;
         justify-content: space-around;
     }
+    .sd-archive-page-container .sd-sidebar {
+        position: static;
+    }
 }
+
+
 /* container */
 
 

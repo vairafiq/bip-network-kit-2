@@ -30,13 +30,6 @@
     --section-spacing: 2rem 0;
 }
 
-@media (max-width: 768px) {
-    :root {
-        --h1: 1.8rem;
-        --h2: 1.4rem;
-        --h3: 1.2rem;
-    }
-}
 
 body {
     margin: 0;
@@ -80,12 +73,12 @@ main a:hover {
 .sd-desktop-only {
     display: inline-block;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .sd-mobile-only {
         display: inline-block;
     }
     .sd-desktop-only {
-        display: none;
+        display: none !important;
     }
 }
 /* viewport conditions */

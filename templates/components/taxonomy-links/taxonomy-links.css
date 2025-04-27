@@ -1,0 +1,40 @@
+.sd-taxonomy-links-title {
+    font-size: var(--h2);
+    font-weight: var(--h2-weight);
+}
+.sd-taxonomy-links-groups {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.sd-taxonomy-group {
+    margin-bottom: 50px;
+}
+.sd-taxonomy-links-heading {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.sd-taxonomy-link{
+    display: block;
+    color: var(--black) !important;
+    padding: 0.12rem 0;
+    border-radius: .2rem;
+}
+.sd-taxonomy-link.selected {
+    text-decoration: underline !important;
+}
+.sd-taxonomy-links-list .sd-taxonomy-toggle{
+    text-decoration: underline !important;
+    font-weight: 500;
+}
+
+@media (max-width:1024px) {
+    .sd-taxonomy-links-groups {
+        display: flex;
+        justify-content: space-between;
+    }
+    .sd-taxonomy-group {
+        margin-bottom: 0px;
+    }
+}
