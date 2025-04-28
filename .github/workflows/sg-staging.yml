@@ -1,36 +1,30 @@
-name: 🚀 Deploy to All Domains (Batch Upload)
+name: Deploy to FTP servers
 
-on: 
+on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'   # Run only when a tag like v1.0.0, v2.0, etc. is pushed
 
 jobs:
-  web-deploy:
-    name: 🎉 Deploy to all domains
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🚚 Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: 🛠 Install lftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
+    - name: Install lftp
+      run: |
+        sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: 📄 Read domain list
-        id: domains
-        run: |
-          echo "::set-output name=list::$(cat .github/domains.txt | tr '\n' ' ')"
+    - name: Set domain list
+      id: domains
+      run: echo "DOMAIN_LIST=$(cat .github/domains.txt | tr '\n' ' ')" >> $GITHUB_ENV
 
-      - name: 🛠 Deploy to each domain
-        run: |
-          for domain in ${{ steps.domains.outputs.list }}
-          do
-            echo "Deploying to $domain"
-            lftp -e "
-              mirror -R ./ /domains/$domain/public_html/wp-content/plugins/bip-network-kit/
-              bye
-            " -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }} ${{ secrets.FTP_SERVER }}
-          done
+    - name: Deploy to domains
+      run: |
+        for domain in $DOMAIN_LIST; do
+          echo "Deploying to $domain"
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }} -e "mirror -R ./public_html /public_html; quit" ftp.$domain
+        done
+    
