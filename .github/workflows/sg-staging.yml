@@ -3,7 +3,7 @@ name: 🚀 Deploy to All Domains (Batch Upload)
 on: 
   push:
     branches:
-      - main
+      - master
 
 jobs:
   web-deploy:
