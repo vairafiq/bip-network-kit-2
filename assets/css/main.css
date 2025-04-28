@@ -66,6 +66,42 @@ main a:hover {
 
 
 
+
+/* buttons */
+.sd-btn-primary {
+    display: block;
+    background: var(--primary-600);
+    color: var(--white) !important;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: 0.2s ease-in-out;
+}
+.sd-btn-primary:hover {
+    background: var(--primary-800);
+    text-decoration: none !important;
+}
+.sd-btn-secondary {
+    display: block;
+    background: transparent;
+    color: var(--primary-800) !important;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    border: 2px solid var(--primary-600) !important;
+    border-radius: 50px;
+    transition: 0.2s ease-in-out;
+}
+.sd-btn-secondary:hover {
+    background: var(--primary-600);
+    text-decoration: none !important;
+    color: var(--white) !important;
+
+}
+/* buttons */
+
+
+
+
 /* viewport conditions */
 .sd-mobile-only {
     display: none;
