@@ -138,3 +138,122 @@ function sd_get_post_data($field = null, $post_id = null) {
 
     return $data;
 }
+
+
+
+
+
+
+
+/**
+ * Get US state abbreviation or full name.
+ *
+ * If you pass a full state name (any case), it returns the abbreviation.
+ * If you pass a state abbreviation (any case), it returns the full state name.
+ *
+ * @param string $state_input State full name or abbreviation.
+ * @return string|null Returns abbreviation or full name, or null if not found.
+ */
+function sd_flip_state( $state_input ) {
+    $states = [
+        'Alabama' => 'AL', 'Alaska' => 'AK', 'Arizona' => 'AZ', 'Arkansas' => 'AR', 'California' => 'CA',
+        'Colorado' => 'CO', 'Connecticut' => 'CT', 'Delaware' => 'DE', 'Florida' => 'FL', 'Georgia' => 'GA',
+        'Hawaii' => 'HI', 'Idaho' => 'ID', 'Illinois' => 'IL', 'Indiana' => 'IN', 'Iowa' => 'IA',
+        'Kansas' => 'KS', 'Kentucky' => 'KY', 'Louisiana' => 'LA', 'Maine' => 'ME', 'Maryland' => 'MD',
+        'Massachusetts' => 'MA', 'Michigan' => 'MI', 'Minnesota' => 'MN', 'Mississippi' => 'MS', 'Missouri' => 'MO',
+        'Montana' => 'MT', 'Nebraska' => 'NE', 'Nevada' => 'NV', 'New Hampshire' => 'NH', 'New Jersey' => 'NJ',
+        'New Mexico' => 'NM', 'New York' => 'NY', 'North Carolina' => 'NC', 'North Dakota' => 'ND', 'Ohio' => 'OH',
+        'Oklahoma' => 'OK', 'Oregon' => 'OR', 'Pennsylvania' => 'PA', 'Rhode Island' => 'RI', 'South Carolina' => 'SC',
+        'South Dakota' => 'SD', 'Tennessee' => 'TN', 'Texas' => 'TX', 'Utah' => 'UT', 'Vermont' => 'VT',
+        'Virginia' => 'VA', 'Washington' => 'WA', 'West Virginia' => 'WV', 'Wisconsin' => 'WI', 'Wyoming' => 'WY'
+    ];
+
+    $state_input = trim($state_input);
+
+    if ( empty($state_input) ) {
+        return null;
+    }
+
+    // Prepare flipped array for abbreviation => full name lookup
+    $abbreviations_to_states = array_flip($states);
+
+    // Check if input is abbreviation
+    $upper_input = strtoupper($state_input);
+    if ( isset( $abbreviations_to_states[$upper_input] ) ) {
+        return $abbreviations_to_states[$upper_input]; // Return full name
+    }
+
+    // Normalize full name input (capitalize each word)
+    $formatted_input = ucwords(strtolower($state_input));
+    if ( isset( $states[$formatted_input] ) ) {
+        return $states[$formatted_input]; // Return abbreviation
+    }
+
+    // Not found
+    return null;
+}
+
+
+
+
+
+
+
+
+
+/**
+ * Generate a Google Maps direction link for a business listing.
+ *
+ * Fetches the address fields from post meta using post ID.
+ * First uses 'business_address' field if available.
+ * If not, it builds the address from street, city, state (converted to abbreviation), and zip.
+ * Cleans the address and returns a Google Maps search link.
+ *
+ * @param int $post_id The ID of the business post.
+ * @return string Google Maps URL for directions.
+ */
+function sd_business_map_direction_link() {
+
+    // Get meta fields
+    $business_address = sd_get_post_data('business_address');
+    $street           = sd_get_post_data('street');
+    $city             = sd_get_post_data('city');
+    $state            = sd_get_post_data('state');
+    $zip              = sd_get_post_data('zip');
+    $name             = get_the_title( get_the_ID() );
+
+    // Step 1: Prepare full address
+    if ( ! empty( $business_address ) ) {
+        $full_address = $business_address;
+    } else {
+        $state_value = '';
+        if ( ! empty( $state ) ) {
+            $state_value = sd_flip_state( $state );
+            if ( ! $state_value ) {
+                $state_value = $state; // fallback: use whatever is saved
+            }
+        }
+
+        $address_parts = array_filter( [ $street, $city, $state_value, $zip ] );
+        $full_address  = implode( ', ', $address_parts );
+    }
+
+    // Step 2: Remove suite/unit numbers
+    $clean_address = preg_replace( '/\b(Suite|Ste|Unit|Apt|Apartment|#)\s*\d+\b/i', '', $full_address );
+
+    // Step 3: Remove special characters except commas and spaces
+    $clean_address = preg_replace( '/[^a-zA-Z0-9,\s]/', '', $clean_address );
+
+    // Step 4: Remove standalone trailing number
+    $clean_address = preg_replace( '/\s\d+$/', '', $clean_address );
+
+    // Step 5: Remove extra spaces
+    $clean_address = trim( preg_replace( '/\s+/', ' ', $clean_address ) );
+
+    // Step 6: Generate Google Maps link
+    $map_link = ! empty( $clean_address )
+        ? "https://www.google.com/maps?q=" . urlencode( $name . ' ' . $clean_address )
+        : '';
+
+    return $map_link;
+}

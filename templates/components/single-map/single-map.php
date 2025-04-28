@@ -30,7 +30,7 @@ function sd_single_map_shortcode($atts) {
     <style>
         #sd-business-map {
             width: 100%;
-            height: 400px;
+            height: 300px;
             border-radius: 10px;
             margin-top: 20px;
         }

@@ -9,8 +9,11 @@
 
 <section class="sdl-address-section">
 
-    <div></div>
-    <div><?php echo do_shortcode( '[sd_single_map]' ); ?></div>
+    <div>
+        <?php echo do_shortcode( '[sd_business_map_link]' ); ?>
+        <?php echo do_shortcode( '[sd_single_map]' ); ?>
+    </div>
+    <div style="border:1px solid lightgray;text-align:center;padding-top:50px;">Business Hours</div>
     
 </section>
 

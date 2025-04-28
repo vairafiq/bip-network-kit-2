@@ -20,7 +20,7 @@
             </nav>
             <div class="sd-footer-contacts">
                 <span class="footer-header">Contacts</span>
-                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:seoscale@gmail.com">seoscale@gmail.com</a></p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:seoscale@gmail.com">bippermedia.dev@gmail.com</a></p>
             </div>
         </div>
     </div>
