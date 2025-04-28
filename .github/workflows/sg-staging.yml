@@ -23,7 +23,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: /home/admin/${{ matrix.domain }}/public_html/wp-content/plugins/bip-network-kit/
+          server-dir: /domains/${{ matrix.domain }}/public_html/wp-content/plugins/bip-network-kit/
           exclude: |
             readme.txt
             utils.js
