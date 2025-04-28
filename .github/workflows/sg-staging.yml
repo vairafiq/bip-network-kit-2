@@ -23,8 +23,10 @@ jobs:
 
     - name: Deploy to domains
       run: |
-        for domain in $DOMAIN_LIST; do
+        for domain in ${{ env.DOMAIN_LIST }}; do
           echo "Deploying to $domain"
-          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }} -e "mirror -R ./public_html /public_html; quit" ftp.$domain
+          lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }} ftp.yourftpserver.com <<EOF
+        mirror -R ./public_html/wp-content/plugins/bip-network-kit domains/$domain/public_html/wp-content/plugins/bip-network-kit
+        quit
+        EOF
         done
-    
