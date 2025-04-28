@@ -9,8 +9,8 @@ jobs:
         domain: [
           localnearmedirectory.com,
           smallbusinessnearmedirectory.com,
-          shoplocalbiznearme.com
-          localbiznearbynow.com
+          shoplocalbiznearme.com,
+          localbiznearbynow.com,
           # ...list all 300 domains here
         ]
     steps:
