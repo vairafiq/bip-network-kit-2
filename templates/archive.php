@@ -48,6 +48,21 @@ echo do_shortcode('[sd_header
                     <?php endif; ?>
                 </div>
 
+                <div class="sd-archive-footer">
+                    <!-- Pagination -->
+                    <div class="sd-archive-pagination">
+                        <?php
+                        the_posts_pagination([
+                            'mid_size'  => 2,
+                            'prev_text' => '<i class="fas fa-chevron-left"></i>',
+                            'next_text' => '<i class="fas fa-chevron-right"></i>',
+                            'before_page_number' => '<span class="sd-page-number">',
+                            'after_page_number' => '</span>',
+                        ]);
+                        ?>
+                    </div>
+                </div> <!-- sd-archive-footer -->
+
             </div> <!-- sd-archive-wrapper -->
         </div> <!-- sd-archive-page-container -->
     
