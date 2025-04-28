@@ -26,7 +26,8 @@ jobs:
         for domain in ${{ env.DOMAIN_LIST }}; do
           echo "Deploying to $domain"
           lftp -u ${{ secrets.FTP_USER }},${{ secrets.FTP_PASS }} ftp.yourftpserver.com <<EOF
-        mirror -R ./public_html/wp-content/plugins/bip-network-kit domains/$domain/public_html/wp-content/plugins/bip-network-kit
+        set ftp:ssl-allow no
+        mirror -R --only-newer bip-network-kit domains/$domain/public_html/wp-content/plugins/bip-network-kit
         quit
         EOF
         done
