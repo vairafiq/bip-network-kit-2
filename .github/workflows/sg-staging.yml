@@ -2,16 +2,16 @@ on: push
 name: 🚀 Deploy to Network Sites
 jobs:
   web-deploy:
-    name: 🎉 Deploy to ${{ matrix.user }}
+    name: 🎉 Deploy to ${{ matrix.domain }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        user: [
-          bipadmin@localnearmedirectory.com,
-          # localservicebiznearme@localservicebiznearme.com,
-          smallbusinessnearmedirectory@smallbusinessnearmedirectory.com,
-          shoplocalbiznearme@shoplocalbiznearme.com,
-          # ...add all 300 usernames here
+        domain: [
+          localnearmedirectory.com,
+          smallbusinessnearmedirectory.com,
+          shoplocalbiznearme.com
+          localbiznearbynow.com
+          # ...list all 300 domains here
         ]
     steps:
       - name: 🚚 Get latest code
@@ -21,9 +21,9 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ matrix.user }}
+          username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: /public_html/wp-content/plugins/bip-network-kit/
+          server-dir: /home/admin/${{ matrix.domain }}/public_html/wp-content/plugins/bip-network-kit/
           exclude: |
             readme.txt
             utils.js
