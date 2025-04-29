@@ -4,11 +4,15 @@
 
 
 /* SINGLE LAYOUT */
-.sdl-review-section,
-.sdl-address-section {
+.sdl-review-section {
     display: grid;
-    gap: 2rem;
+    gap: 4rem;
     grid-template-columns: 34% 1fr;
+}
+.sdl-map-hours-section {
+    display: grid;
+    gap: 4rem;
+    grid-template-columns: 1fr 320px;
 }
 .sd-rating-progress {
     position: sticky;
@@ -29,6 +33,11 @@
     }
     .admin-bar .sd-rating-progress {
         position: static;
+    }
+
+    .sdl-map-hours-section {
+        gap: 1rem;
+        grid-template-columns: 1fr;
     }
 }
 /* SINGLE LAYOUT */
