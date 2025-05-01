@@ -90,16 +90,13 @@ function bip_get_update_response( $request ) {
 
 
 function bip_get_add_response( $request ) {
-    
     $params = $request->get_params();
-    
-    // file_put_contents( dirname(__FILE__) . '/'.$params['name'][0].'.txt', print_r( $params, true), FILE_APPEND);   
 
     $description = bip_get_listing_content( $params['name'][0], $params['address'][0] );
-    // Create post
+
     $post_data = [
         'post_title'   => sanitize_text_field($params['name'][0] ?? 'Untitled'),
-        'post_type'    => 'sd_business', // or your CPT like 'gd_restaurants'
+        'post_type'    => 'sd_business',
         'post_status'  => 'publish',
         'post_content' => $description,
     ];
@@ -107,28 +104,52 @@ function bip_get_add_response( $request ) {
     $post_id = wp_insert_post($post_data);
 
     if (!is_wp_error($post_id)) {
-
-        // Loop through all keys and save as post meta
         foreach ( $params as $key => $value ) {
+            if ( $key === 'name' ) continue;
 
-            // Skip post fields
-            if ( in_array( $key, ['name'] ) ) {
+            // Handle 'category' taxonomy
+            if ( $key === 'category' ) {
+                $term_name = is_array($value) ? $value[0] : $value;
+                $term_name = sanitize_text_field($term_name);
+
+                $term = term_exists($term_name, 'sd_business_category');
+                if (!$term) {
+                    $term = wp_insert_term($term_name, 'sd_business_category');
+                }
+
+                if (!is_wp_error($term)) {
+                    wp_set_object_terms($post_id, intval($term['term_id']), 'sd_business_category');
+                }
                 continue;
             }
 
-            // If value is array, store first item or serialize
-            if ( is_array($value) ) {
-                $value = count($value) === 1 ? $value[0] : maybe_serialize($value);
+            // Handle 'city' taxonomy
+            if ( $key === 'city' ) {
+                $term_name = is_array($value) ? $value[0] : $value;
+                $term_name = sanitize_text_field($term_name);
+
+                $term = term_exists($term_name, 'sd_business_location');
+                if (!$term) {
+                    $term = wp_insert_term($term_name, 'sd_business_location');
+                }
+
+                if (!is_wp_error($term)) {
+                    wp_set_object_terms($post_id, intval($term['term_id']), 'sd_business_location');
+                }
+                continue;
+            }
+
+            // Store other meta fields
+            if ( is_array($value) || is_object($value) ) {
+                $value = wp_json_encode($value);
             }
 
             update_post_meta($post_id, $key, $value);
         }
 
-        $post_link = get_permalink($post_id);
-
         return rest_ensure_response([
-            'link' => $post_link,
-            'post_id' => $post_id,
+            'link'     => get_permalink($post_id),
+            'post_id'  => $post_id,
         ]);
 
     } else {
