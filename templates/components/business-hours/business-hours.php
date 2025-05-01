@@ -61,7 +61,7 @@ function sd_business_hours_shortcode() {
 
         .sd-business-hours-item.sd-is-closed .sd-business-day,
         .sd-business-hours-item.sd-is-closed .sd-business-time {
-            color: red;
+            color: var(--red);
         }
     </style>
     <?php

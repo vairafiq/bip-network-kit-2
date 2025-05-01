@@ -3,8 +3,11 @@
     --primary-600: #135D66;
     --primary-400: #77B0AA;
     --primary-200: #E3FEF7;
+    --primary-100: #f6fffc;
 
     --accent: #ff9800;
+    --green: #34a853;
+    --red: #EE0000;
     
     --white: #FFFFFF;
     --lighter: #f4f4f4;
@@ -76,6 +79,7 @@ main a:hover {
     font-weight: 600;
     border-radius: 50px;
     transition: 0.2s ease-in-out;
+    max-width: max-content;
 }
 .sd-btn-primary:hover {
     background: var(--primary-800);
@@ -90,6 +94,7 @@ main a:hover {
     border: 2px solid var(--primary-600) !important;
     border-radius: 50px;
     transition: 0.2s ease-in-out;
+    max-width: max-content;
 }
 .sd-btn-secondary:hover {
     background: var(--primary-600);
