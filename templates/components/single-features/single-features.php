@@ -88,11 +88,11 @@
     }
 
     .feature-true .icon {
-        color: #15c215;
+        color: var(--green);
     }
 
     .feature-false .icon {
-        color: red;
+        color: var(--red);
         opacity: 0.6;
     }
     @media (max-width:1024px) {

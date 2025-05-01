@@ -105,8 +105,10 @@
     .sd-single-banner-title {
         margin-bottom: 0.5rem !important;
     }
-    .sd-single-banner-categories .sd-divider-dot {
-        display: none;
+}
+@media (max-width:480px) {
+    .sd-single-banner-head-social {
+        text-align: left;
     }
 }
 /* banner head */

@@ -96,7 +96,10 @@
     color: var(--white);
 }
 
-
+.sd-footer-bio a {
+    text-decoration: underline !important;
+    font-weight: 500 !important;
+}
 @media (max-width: 768px) {
     .sd-footer-main {
         grid-template-columns: 1fr;

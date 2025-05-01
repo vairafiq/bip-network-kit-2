@@ -139,6 +139,7 @@ function bip_get_add_response( $request ) {
                 continue;
             }
 
+            $value = isset( $value[0] ) ? $value[0] : '';
             // Store other meta fields
             if ( is_array($value) || is_object($value) ) {
                 $value = wp_json_encode($value);
