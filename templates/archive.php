@@ -22,19 +22,24 @@ echo do_shortcode('[sd_header
 
                 <!-- Archive header -->
                 <div class="sd-archive-header">
-                    <?php
-                    if (is_tax('sd_business_category')) {
-                        echo '<h2 class="sd-archive-title">' . single_term_title('', false) . 's</h2>';
-                    } elseif (is_tax('sd_business_location')) {
-                        echo '<h2 class="sd-archive-title">Businesses in ' . single_term_title('', false) . '</h2>';
-                    } elseif (is_post_type_archive('sd_business')) {
-                        echo '<h2 class="sd-archive-title">' . post_type_archive_title('', false) . '</h2>';
-                    } elseif (is_search()) {
-                        echo '<h2 class="sd-archive-title">Search results for: ' . get_search_query() . '</h2>';
-                    } else {
-                        echo '<h2 class="sd-archive-title">' . get_the_archive_title() . '</h2>';
-                    }
-                    ?>
+                    <div class="ad-archive-title">
+                        <?php echo do_shortcode( '[sd_breadcrumb]' ); ?>
+                    </div>
+                    <div class="ad-archive-title">
+                        <?php
+                        if (is_tax('sd_business_category')) {
+                            echo '<h2 class="sd-archive-title">' . single_term_title('', false) . 's</h2>';
+                        } elseif (is_tax('sd_business_location')) {
+                            echo '<h2 class="sd-archive-title">Businesses in ' . single_term_title('', false) . '</h2>';
+                        } elseif (is_post_type_archive('sd_business')) {
+                            echo '<h2 class="sd-archive-title">' . post_type_archive_title('', false) . '</h2>';
+                        } elseif (is_search()) {
+                            echo '<h2 class="sd-archive-title">Search results for: ' . get_search_query() . '</h2>';
+                        } else {
+                            echo '<h2 class="sd-archive-title">' . get_the_archive_title() . '</h2>';
+                        }
+                        ?>
+                    </div>
                 </div>
 
                 <!-- Business list starts here -->
