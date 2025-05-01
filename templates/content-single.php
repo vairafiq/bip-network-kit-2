@@ -10,7 +10,7 @@
 <section class="sdl-map-hours-section">
 
     <div><?php echo do_shortcode( '[sd_single_map]' ); ?></div>
-    <div style="border:1px solid lightgray;text-align:center;padding-top:50px;">Business Hours</div>
+    <div><?php echo do_shortcode( '[sd_business_hours]' ); ?></div>
     
 </section>
 

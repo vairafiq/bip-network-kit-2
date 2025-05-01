@@ -88,7 +88,7 @@
     }
 
     .feature-true .icon {
-        color: green;
+        color: #15c215;
     }
 
     .feature-false .icon {

@@ -36,7 +36,7 @@
     }
 
     .sdl-map-hours-section {
-        gap: 1rem;
+        gap: 2rem;
         grid-template-columns: 1fr;
     }
 }

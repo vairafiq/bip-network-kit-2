@@ -68,57 +68,49 @@ function sd_single_map_shortcode($atts) {
 
 
 
-    <!-- js -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
     <script>
-        mapboxgl.accessToken = '<?php echo esc_js($mapbox_token); ?>'; // Mapbox token
+        mapboxgl.accessToken = '<?php echo esc_js($mapbox_token); ?>';
 
         const map = new mapboxgl.Map({
             container: 'sd-business-map',
             style: 'mapbox://styles/mapbox/streets-v12',
-            center: [-34.5, 40], // temporary default
+            center: [-34.5, 40], // temp default
             zoom: 16
         });
-        map.setPadding({ right: 450, bottom: 100 }); // adjust 50 as needed
 
+        const setMapCenter = (lng, lat) => {
+            map.resize(); // Ensure map container size is correct
+            map.easeTo({ center: [lng, lat], zoom: 16 });
+            new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+        };
 
-        <?php if (!empty($address)) : ?>
-            // Try to geocode the address first
-            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/<?php echo urlencode($address); ?>.json?access_token=${mapboxgl.accessToken}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.features.length > 0) {
-                        const [lng, lat] = data.features[0].geometry.coordinates;
-                        map.setCenter([lng, lat]);
-                        new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
-                    } else {
+        map.on('load', function () {
+            <?php if (!empty($address)) : ?>
+                fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/<?php echo urlencode($address); ?>.json?access_token=${mapboxgl.accessToken}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.features.length > 0) {
+                            const [lng, lat] = data.features[0].geometry.coordinates;
+                            setMapCenter(lng, lat);
+                        } else {
+                            fallbackToLatLng();
+                        }
+                    })
+                    .catch(() => {
                         fallbackToLatLng();
-                    }
-                })
-                .catch(() => {
-                    fallbackToLatLng();
-                });
+                    });
 
-            function fallbackToLatLng() {
-                <?php if (!empty($latitude) && !empty($longitude)) : ?>
-                    map.setCenter([<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>]);
-                    new mapboxgl.Marker()
-                        .setLngLat([<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>])
-                        .addTo(map);
-                <?php endif; ?>
-            }
-        <?php else: ?>
-            // No address, fallback to lat/lng
-            map.setCenter([<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>]);
-            new mapboxgl.Marker()
-                .setLngLat([<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>])
-                .addTo(map);
-        <?php endif; ?>
+                function fallbackToLatLng() {
+                    <?php if (!empty($latitude) && !empty($longitude)) : ?>
+                        setMapCenter(<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>);
+                    <?php endif; ?>
+                }
+            <?php else: ?>
+                setMapCenter(<?php echo esc_js($longitude); ?>, <?php echo esc_js($latitude); ?>);
+            <?php endif; ?>
+        });
     </script>
-    <!-- js -->
-
-
-
 
 
 
@@ -129,12 +121,6 @@ function sd_single_map_shortcode($atts) {
             gap: 1rem;
             grid-template-columns: 320px 1fr;
             align-items: center;
-        }
-        @media (max-width:768px) {
-            .sd-single-map-container {
-                gap: 0.7rem;
-                grid-template-columns: 1fr;
-            }
         }
         #sd-business-map {
             width: 320px;
@@ -172,6 +158,16 @@ function sd_single_map_shortcode($atts) {
             align-items: start;
             gap: 0.5rem;
             line-height: 1 !important;
+        }
+        @media (max-width:768px) {
+            .sd-single-map-container {
+                gap: 1rem;
+                grid-template-columns: 1fr;
+            }
+            #sd-business-map {
+                width: 100%;
+                height: 300px;
+            }
         }
     </style>
 
