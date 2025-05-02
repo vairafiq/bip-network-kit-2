@@ -92,7 +92,7 @@ function bip_get_update_response( $request ) {
 function bip_get_add_response( $request ) {
     $params = $request->get_params();
 
-    $description = bip_get_listing_content( $params['name'][0], $params['address'][0] );
+    $description = bip_get_listing_content( $params['name'][0], $params['address'][0], $params['category'][0] );
 
     $post_data = [
         'post_title'   => sanitize_text_field($params['name'][0] ?? 'Untitled'),
