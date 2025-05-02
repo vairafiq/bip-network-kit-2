@@ -4,7 +4,7 @@
 
 
 .sd-footer {
-	background: var(--primary-800);
+	background: var(--footer-bg);
     padding: 4rem 1rem 1rem 1rem;
     color: var(--white) !important;
 }
@@ -86,7 +86,7 @@
     color: var(--accent);
 }
 .sd-footer-bottom {
-    background: var(--primary-800);
+    background: var(--footer-bg);
     border-top: 1px solid var(--primary-400);
     padding: 1rem;
 }

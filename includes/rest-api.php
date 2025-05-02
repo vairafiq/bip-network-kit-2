@@ -25,8 +25,49 @@ function register_api_endpoints(){
         'callback' => 'bip_get_update_response',
         'permission_callback' => '__return_true',
     ));
+    register_rest_route('bip/unlist', '/listing/', array(
+        'methods' => 'POST',
+        'callback' => 'bip_get_unlist_response',
+        'permission_callback' => '__return_true',
+    ));
 }
 
+
+function bip_get_unlist_response( $request ) {
+    
+    $params = $request->get_params();
+
+    $network_id = $params['network_id'];
+    
+    $args = [
+        'post_type'      => 'sd_business',
+        'posts_per_page' => 1,
+        'meta_query'     => [
+            [
+                'key'     => 'network_id',
+                'value'   => $network_id, // Replace with the actual value
+                'compare' => '='
+            ]
+        ]
+    ];
+    
+    $query = new WP_Query($args);
+
+    if( ! $query->have_posts() ) {
+        return;
+    }
+    
+    $post = $query->posts[0];
+
+    $post_id = $post->ID;
+
+    $post = array(
+        'ID'           => $post_id,
+        'post_status'  => 'draft',
+    );
+    
+    wp_update_post( $post );
+}
 
 function bip_get_update_response( $request ) {
     
