@@ -55,11 +55,12 @@
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 20px;
 }
 .sd-menu .sd-menu-item>a {
-	color: var(--white) !important;
+	color: var(--white);
 	font-weight: 600;
 }
 .sd-menu .sd-menu-item a {
@@ -69,8 +70,9 @@
 .sd-menu .sd-menu-item:hover>a,
 .sd-menu .sd-menu-item:hover i,
 .sd-menu .sd-menu-item.active>a {
-    color: var(--accent) !important;
+    color: var(--accent);
 }
+
 /* main menu */
 
 
@@ -131,7 +133,7 @@
     color: var(--black);
 }
 .sd-submenu .sd-submenu-item:hover a {
-    color: var(--accent) !important;
+    color: var(--accent);
 }
 /* Submenu */
 
@@ -192,7 +194,7 @@
         background: var(--primary-800);
     }
     .sd-has-submenu .sd-submenu a{
-        color: var(--white) !important;
+        color: var(--white);
     }
 
     .sd-has-submenu.open .sd-submenu {

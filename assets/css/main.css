@@ -102,6 +102,22 @@ main a:hover {
     color: var(--white) !important;
 
 }
+a.sd-btn-red{
+    text-transform: capitalize !important;
+    background: var(--red) !important;
+    padding: 0.5rem 1rem !important;
+    color: var(--white) !important;
+    transition: 0.2s;
+    font-weight: 500;
+}
+a.sd-btn-red:hover i {
+    color: var(--white) !important;
+}
+a.sd-btn-red:hover{
+    color: var(--white) !important;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    text-decoration: none !important;
+}
 /* buttons */
 
 

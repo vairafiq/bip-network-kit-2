@@ -32,7 +32,7 @@ function sd_header_shortcode($atts) {
             <div class="sd-header-inner">
                 <!-- Site Logo -->
                 <div class="sd-logo">
-                    <a href="<?php echo home_url(); ?>" rel="home">
+                    <a href="<?php echo home_url(); ?>" rel="home" aria-label="Go homepage">
                         <span class="site-name"><?php bloginfo('name'); ?></span>
                     </a>
                 </div>
@@ -51,7 +51,7 @@ function sd_header_shortcode($atts) {
 
                         <li class="sd-menu-item-wrapper">
                             <span class="sd-menu-item">
-                                <a href="<?php echo esc_url(home_url('/')); ?>">
+                                <a href="<?php echo esc_url(home_url('/')); ?>" aria-label="Go homepage">
                                     Home
                                 </a>
                                 
@@ -73,8 +73,30 @@ function sd_header_shortcode($atts) {
                         </li>
                         <li class="sd-menu-item-wrapper">
                             <span class="sd-menu-item">
-                                <a href="<?php echo esc_url(home_url('/biz/')); ?>">
+                                <a href="<?php echo esc_url(home_url('/biz/')); ?>" aria-label="All businesses">
                                     Businesses
+                                </a>
+                                
+                            <!-- <span class="sd-submenu-toggle" aria-label="Toggle submenu">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </span> -->
+                        
+                            </span>
+                            
+                            <!-- submenu -->
+                            <!-- <ul class="sd-submenu">
+                                <li class="sd-submenu-item">
+                                    <a href="#">
+                                        submenu item
+                                    </a>
+                                </li>
+                            </ul> -->
+                
+                        </li>
+                        <li class="sd-menu-item-wrapper">
+                            <span class="sd-menu-item">
+                                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-red" aria-label="Add your business">
+                                    <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
                                 </a>
                                 
                             <!-- <span class="sd-submenu-toggle" aria-label="Toggle submenu">

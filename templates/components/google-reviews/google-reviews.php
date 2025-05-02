@@ -5,10 +5,10 @@ function sd_google_reviews_shortcode() {
     $google_reviews   = get_post_meta($post_id, 'google_reviews', true) ?? '';
     
     if(empty($google_reviews)) {
-        return;
+        return 'Reviews not found!';
     }
     
-    $google_reviews   = json_decode($google_reviews, true);
+    $google_reviews   = unserialize($google_reviews);
     $google_reviews   = $google_reviews['reviews'];
 
     ob_start();

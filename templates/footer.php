@@ -19,8 +19,12 @@
                 </ul>
             </nav>
             <div class="sd-footer-contacts">
-                <span class="footer-header">Contacts</span>
-                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:seoscale@gmail.com">bippermedia.dev@gmail.com</a></p>
+                <span class="footer-header" style="text-transform:none !important;">Decided to be here?</span>
+                <div>
+                    <a href="https://bippermedia.com/add-network-business/" class="sd-btn-red" aria-label="Add your business">
+                        <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
+                    </a>
+                </div>
             </div>
         </div>
     </div>
