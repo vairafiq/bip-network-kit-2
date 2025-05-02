@@ -146,7 +146,7 @@ function sd_single_banner_shortcode() {
                                 <h2 class="sd-single-banner-details-title">About</h2>
                                 <div class="sd-single-banner-details-text">
                                     <p class="short-content"><?php echo esc_html( $short_content ) . '...'; ?></p>
-                                    <p class="full-content" style="display:none;"><?php echo $content; ?></p>
+                                    <p class="full-content" style="display:none;"><?php echo apply_filters('the_content', $content); ?></p>
                                     <a href="#" class="read-more-toggle" style="color:#0073aa;">Read More</a>
         
                                     <span class="sd-devider-line"></span>
