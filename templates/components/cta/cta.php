@@ -1,17 +1,20 @@
 <?php
 function sd_add_business_cta_shortcode() {
+    $cta_title = sd_get_kit('cta_title') ?? '';
+    $cta_features_raw = sd_get_kit('cta_features') ?? [];
+    $features = array_filter(array_map('trim', explode(",", $cta_features_raw)));
+
     ob_start(); ?>
     
     <div class="sd-cta-wrapper">
         <div class="sd-cta-container">
             <div class="sd-cta-head">
-                <h2 class="sd-cta-title">Get Your Business Found Online</h2>
+                <h2 class="sd-cta-title"><?php echo esc_html($cta_title); ?></h2>
             </div>
             <div class="sd-cta-features">
-                <div class="sd-cta-feature"><span class="sd-checkmark">✔</span> Show up in local searches</div>
-                <div class="sd-cta-feature"><span class="sd-checkmark">✔</span> Share business hours, address, and services</div>
-                <div class="sd-cta-feature"><span class="sd-checkmark">✔</span> Boost visibility and gain more customers</div>
-                <div class="sd-cta-feature"><span class="sd-checkmark">✔</span> Listing with instant approval</div>
+                <?php foreach ($features as $feature) {
+                    echo '<div class="sd-cta-feature"><span class="sd-checkmark">✔</span><span> ' . esc_html($feature) . '</span></div>';
+                } ?>
             </div>
             <div class="sd-cta-button">
                 <a href="https://bippermedia.com/add-network-business/" class="sd-btn-primary">Add Your Business</a>
@@ -75,7 +78,7 @@ function sd_add_business_cta_shortcode() {
             color: var(--green);
             font-weight: bold;
             font-size: 18px;
-            line-height: 1;
+            line-height: 1.3;
         }
 
         @media (max-width: 768px) {

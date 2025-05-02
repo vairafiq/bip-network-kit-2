@@ -8,7 +8,7 @@
 
 .sd-header-container {
     transition: background 0.5s ease-in-out;
-	/* background: var(--primary-800); initally transparent, will add after scroll */
+	/* background: var(--header-bg); initally transparent, will add after scroll */
     /* top: 0; top value will be applied from javascript managing adminbar existance */
 }
 /* adjusting the banner */
@@ -21,7 +21,7 @@
 /* adjust background */
 .sd-header-container.scrolled,
 .sd-header-container.header-single { 
-	background: var(--primary-800);
+	background: var(--header-bg);
 }
 .sd-header-inner {
     padding: 1rem;

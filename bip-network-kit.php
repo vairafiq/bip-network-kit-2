@@ -11,6 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 // Include files
 include plugin_dir_path(__FILE__) . 'templates/header.php';
+require_once plugin_dir_path(__FILE__) . 'includes/kit-settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-business.php';
 require_once plugin_dir_path(__FILE__) . 'includes/rest-api.php';
 require_once plugin_dir_path(__FILE__) . 'includes/helper.php';
@@ -103,6 +104,61 @@ function sd_enqueue_cdn() {
 
 
 
+/**
+ * Output dynamic CSS variables in <head> from Kit Settings CPT
+ *
+ * This function fetches the latest published 'kit_settings' post
+ * and outputs <style>:root { ... }</style> in the <head> section
+ * with all defined color variables from the custom fields.
+ * 
+ * Variables can be used in your theme with: var(--primary-800), var(--accent), etc.
+ */
+function sd_output_kit_settings_css() {
+    // Get the latest published kit_settings post
+    $settings = get_posts([
+        'post_type' => 'kit_settings',
+        'numberposts' => 1,
+        'post_status' => 'publish',
+    ]);
+
+    if (empty($settings)) return;
+
+    $post_id = $settings[0]->ID;
+
+    $css_vars = [
+        'primary-800' => get_post_meta($post_id, 'primary_800', true),
+        'primary-600' => get_post_meta($post_id, 'primary_600', true),
+        'primary-400' => get_post_meta($post_id, 'primary_400', true),
+        'primary-200' => get_post_meta($post_id, 'primary_200', true),
+        'primary-100' => get_post_meta($post_id, 'primary_100', true),
+        'header-bg'   => get_post_meta($post_id, 'header_bg', true),
+        'footer-bg'   => get_post_meta($post_id, 'footer_bg', true),
+        'accent'      => get_post_meta($post_id, 'accent', true),
+        'green'       => get_post_meta($post_id, 'green', true),
+        'red'         => get_post_meta($post_id, 'red', true),
+        'white'       => get_post_meta($post_id, 'white', true),
+        'lighter'     => get_post_meta($post_id, 'lighter', true),
+        'light'       => get_post_meta($post_id, 'light', true),
+        'gray'        => get_post_meta($post_id, 'gray', true),
+        'black'       => get_post_meta($post_id, 'black', true),
+    ];
+
+    echo '<style>:root {';
+    foreach ($css_vars as $key => $value) {
+        if ($value) {
+            echo '--' . esc_attr($key) . ': ' . esc_html($value) . '; ';
+        }
+    }
+    echo '}</style>';
+}
+add_action('wp_head', 'sd_output_kit_settings_css');
+
+
+
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +190,50 @@ function sd_get_post_data($field = null, $post_id = null) {
 
     foreach ($raw_meta as $key => $value) {
         $data[$key] = maybe_unserialize($value[0]); // Get just the actual value
+    }
+
+    return $data;
+}
+
+
+
+
+
+
+/**
+ * Get Kit Settings field value.
+ *
+ * @param string|null $field Optional. Field key. If null, returns all fields as an array.
+ * 
+ * @uses sd_get_kit()
+ * @uses sd_get_kit('cta_features')
+ * 
+ * @return mixed Single field value or array of all fields.
+ */
+function sd_get_kit($field = null) {
+    // Get the first (and only) Kit Settings post
+    $kit_settings = get_posts([
+        'post_type'      => 'kit_settings',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ]);
+
+    if (empty($kit_settings)) {
+        return null;
+    }
+
+    $post_id = $kit_settings[0]->ID;
+
+    if ($field) {
+        return get_post_meta($post_id, $field, true);
+    }
+
+    // Return all fields
+    $raw_meta = get_post_meta($post_id);
+    $data = [];
+
+    foreach ($raw_meta as $key => $value) {
+        $data[$key] = maybe_unserialize($value[0]);
     }
 
     return $data;

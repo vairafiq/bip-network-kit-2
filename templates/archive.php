@@ -1,11 +1,13 @@
 
 <?php
-$site_title = get_bloginfo('name');
+$site_title = get_bloginfo('name') ?? '';
+$sub_title = sd_get_kit('archive_banner_subtitle') ?? '';
+$bg_url = sd_get_kit('otherpage_banner_bg') ?? '';
 echo do_shortcode('[sd_header 
-    image="https://localnearmedirectory.com/wp-content/uploads/2025/04/banner2-scaled.webp"
-    heading="Best Local Businesses" 
-    sub-heading="Explore the Best Local Businesses in your area" 
-    description="Your trusted online guide to discovering the best local businesses around you. Whether you are in the heart of Austin or just exploring, we help you find top-rated services, restaurants, shops, and more all in one place, tailored to your needs."]');
+    image="'.$bg_url.'"
+    heading="'.$site_title.'" 
+    sub-heading="'.$sub_title.'" 
+    description=""]');
 ?>
 
 

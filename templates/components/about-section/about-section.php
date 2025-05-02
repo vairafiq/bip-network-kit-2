@@ -2,6 +2,8 @@
 
 
 function sd_about_section_shorcode() {
+    $about_content = sd_get_kit('about_content') ?? '';
+    $about_image = sd_get_kit('about_image') ?? '';
     ob_start();
     ?>
 
@@ -9,13 +11,12 @@ function sd_about_section_shorcode() {
         <div class="sd-about-inner">
             <div class="sd-about-details">
                 <h2 class="sd-about-title">Why Choose Us?</h2>
-                <span class="sd-about-subtitle">Local Expertise, Global Reach</span>
-                <p class="sd-about-text">We specialize in understanding the unique dynamics of local business environments. While our focus is rooted in community-driven solutions, we extend our services to businesses worldwide, helping them thrive and make an impact in their respective regions.</p>
-                <span class="sd-about-subtitle">Customized Solutions for Your Growth</span>
-                <p class="sd-about-text">Every business has its own goals and challenges, which is why we offer personalized services tailored to your exact needs. Whether you're a neighborhood café or an international brand, our platform is here to enhance your visibility and success in your local market.</p>
+                <div class="sd-about-text">
+                    <?php echo apply_filters('the_content', $about_content); ?>
+                </div>
             </div>
             <div class="sd-about-image">
-                <img src="https://localnearmedirectory.com/wp-content/uploads/2025/04/map-with-markers.webp" alt="map with markers">
+                <img src="<?php echo esc_url($about_image); ?>" alt="About us banner">
             </div>
         </div>
     </div>
@@ -27,11 +28,7 @@ function sd_about_section_shorcode() {
             gap: 2rem;
             justify-content: space-between;
         }
-        .sd-about-subtitle {
-            font-size: var(--h3);
-            font-weight: var(--h2-weight);
-        }
-        .sd-about-text {
+        .sd-about-text:not(strong, h2, h3, h4, h5) {
             font-size: var(--p);
             font-weight: var(--p-weight);
         }
