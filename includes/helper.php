@@ -70,40 +70,31 @@ function bip_ai_server_response( $command ) {
     }
 }
 
-function bip_listing_description_update_prompt( $name, $address ) {
+function bip_listing_description_update_prompt( $name, $address, $category ) {
 
     $prompt = <<<TEXT
-    Generate an SEO-friendly Google Business description based on the details below. Write a short business description for {$name} in {$address} and generate 5 of the most commonly asked questions searched on Google for this business. Don't add any intro. Follow these updated guidelines:
-    
-        Rephrase text with natural sentence variation (short, medium, and long sentences).
-    
-        Add colloquial expressions, human-like redundancies, and emotionally-aware phrasing.
-        
-        Maintain the original meaning, tone, perspective, and style of the input.
-        
-        Occasionally introduce light imperfections (e.g., slight overuse of commas, double  spaces, or filler words) to mimic human writing habits.
-        
-        Avoid any trace of robotic or overly formal language.
-        
-        Your output should:
-        
-        Be shorter or equal in word count to the original.
-        
-        Never include questions unless they were in the original.
-        
-        Always preserve the text’s intent, tone, and grammatical context (e.g., first vs. third person).
-        
-        Be undetectable by AI content detection tools (e.g., GPTZero, Turnitin, Copyleaks).
-        
-        When rewriting:
-        
-        Add personal anecdotes, pop culture references, or opinionated tones where fitting.
-        
-        Increase "perplexity" and "burstiness" naturally.
-        
-        Avoid robotic structure; use contractions, interjections, and natural flow.
+    Generate a 120-word English business description in the tone of a top-rated business listing. Inputs:
+    Business Name: {$name}
+    Address: {$address}
+    Category: {$category}
+    Stage 1 – Draft:
+    1. Paint a vivid picture of what the business offers (2–3 sentences).
+    2. Highlight 2 signature features or “wow” moments.
+    3. Close with a sense of exclusivity or local charm.
+    4. Split any paragraph longer than 3 sentences into smaller paragraphs.
+    Stage 2 – Humanize:
+    1. Adopt a guest-review vibe—evocative, immersive.
+    2. Weave in casual asides (“you’ll find,” “just imagine”).
+    3. Drop in one light flourish or slight typo to feel organic.
+    4. Anchor with a concrete detail (“Since 2011,” “over 50 villas”).
+    5. Text must be for 8 grade readers
+    6. Final polish: exactly 120 words, no less.
+    Forbidden Words  
+    Dive, Dazzling, Enhance, Discover, Divine, Unveiling, Comprehensive, Inquire, Discern, Vigilance, “In conclusion”, Embark, Journey, Elevate, Evolution, Shift, Prevailing, Unleash, “Let us embark on a journey of”, Facilitate, Unveil, Elucidate, Leverage, Utilize, Strategize, Innovate, Synthesize, Expedite, Cultivate, Delineate, Articulate, Navigate, Proliferate, Augment, Diversify, Conceptualize, Manifest, Ponder, Scrutinize, Elicit, Enumerate, Empower, Disseminate, Culminate, Harness, Perceive, Actualize, Harmonize, Accentuate, Illuminate, Reiterate, Mitigate, Galvanize, Transcend, Advocate, Exemplify, Validate, Consolidate, Mediate, Conjecture, Ascertain, Contextualize, Amplify, Elaborate, Synergize, Correlate, Quantify, Extrapolate, Substantiate, Deconstruct, Engage, Envision, Speculate, Expound, Interpret, Juxtapose, Encompass, Revitalize, Assimilate, Collaborate, Deliberate, Aggregate, Fortify, Acclimate, Differentiate, Reconcile, Decipher, Theorize, Alleviate, Align, Dissect, Formulate, Evaluate, Converge, Introspect, Scaffold, Emulate, Reconfigure, Incubate, Permeate, Benchmark, Calibrate, Recapitulate, Orchestrate, Retrofit, Transmute.
 
-        Avoid all introductory text like 'Here is your HTML structure:', 'Here is the generated content:' or other unnecessary content.
+    Stage 3: Humanize Advanced
+    Remove AI cliche beginning words and any other words
+    Avoid all introductory text like 'Here is your HTML structure:', 'Here is the generated content:' or other unnecessary content.
     TEXT;
 
     return $prompt;
@@ -111,13 +102,13 @@ function bip_listing_description_update_prompt( $name, $address ) {
 }
 
 
-function bip_get_listing_content( $name, $address ) {
+function bip_get_listing_content( $name, $address, $category ) {
 
     if( ! $name || ! $address ) {
         return;
     }
 
-    $command = bip_listing_description_update_prompt( $name, $address );
+    $command = bip_listing_description_update_prompt( $name, $address, $category );
 
     $response = bip_ai_server_response( $command );
 
