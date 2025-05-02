@@ -30,7 +30,7 @@
 	padding-bottom: 20px !important;
 }
 .sd-footer-bio a {
-    color: var(--accent) !important;
+    color: var(--accent);
 }
 .sd-footer-main .footer-header {
     display: block;
@@ -74,7 +74,7 @@
 }
 .sd-footer-social a:hover i,
 .sd-footer-social a:hover{
-    background: var(--accent) !important;
+    background: var(--accent);
     color: var(--white) !important;
 }
 
@@ -83,7 +83,7 @@
 }
 .sd-footer a:hover {
     text-decoration: underline;
-    color: var(--accent) !important;
+    color: var(--accent);
 }
 .sd-footer-bottom {
     background: var(--primary-800);

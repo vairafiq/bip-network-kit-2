@@ -6,7 +6,7 @@ function sd_business_hours_shortcode() {
         return 'Business hours not found!';
     }
 
-    $hours = json_decode( $business_hours, true );
+    $hours = unserialize($business_hours);
     if ( ! is_array( $hours ) ) {
         return 'There is a problem with business hours!';
     }
@@ -14,13 +14,13 @@ function sd_business_hours_shortcode() {
     ob_start(); ?>
     <div class="sd-business-hours">
         <ul class="sd-business-hours-list">
-            <?php foreach ( $hours as $day => $time ) :
-                $is_closed = stripos($time, 'close') !== false; // case-insensitive check
+            <?php foreach ( $hours as $key => $value ) :
+                $is_closed = stripos($value['hours'], 'close') !== false; // case-insensitive check
                 $class = $is_closed ? ' sd-is-closed' : '';
             ?>
                 <li class="sd-business-hours-item<?php echo esc_attr($class); ?>">
-                    <span class="sd-business-day"><?php echo esc_html( ucfirst($day) ); ?></span>
-                    <span class="sd-business-time"><?php echo esc_html( $time ); ?></span>
+                    <span class="sd-business-day"><?php echo esc_html( ucfirst($value['day']) ); ?></span>
+                    <span class="sd-business-time"><?php echo esc_html( $value['hours'] ); ?></span>
                 </li>
             <?php endforeach; ?>
         </ul>

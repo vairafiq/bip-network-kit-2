@@ -5,7 +5,7 @@
 
  function sd_single_features_shortcode() {
     $features = sd_get_post_data('features');
-    $features = json_decode($features, true);
+    $features = unserialize($features);
 
     if (empty($features)) {
         return;
