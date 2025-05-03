@@ -24,7 +24,7 @@ function sd_faq_accordion_shortcode($atts) {
         <?php foreach ($faqs as $faq): ?>
             <div class="sd-faq-item">
                 <div class="sd-faq-question"><?php echo esc_html($faq['question']); ?></div>
-                <div class="sd-faq-answer"><?php echo esc_html($faq['answer']); ?></div>
+                <div class="sd-faq-answer"><?php echo wp_kses_post($faq['answer']); ?></div>
             </div>
         <?php endforeach; ?>
     </div>

@@ -25,7 +25,7 @@ function sd_render_review_summary() {
             <tr>
                 <th>Source</th>
                 <th>Rating</th>
-                <th>Reviews</th>
+                <th>Based on</th>
             </tr>
         </thead>
         <tbody>
