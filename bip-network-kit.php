@@ -9,7 +9,6 @@ License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
-
 define('SD_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 
