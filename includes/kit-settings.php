@@ -61,9 +61,9 @@ function sd_create_default_kit_settings_post() {
                 'gray'        => '#787878',
                 'black'       => '#333333',
 
-                'homepage_banner_subtitle' => 'Explore the Best Local Businesses in your area',
-                'archive_banner_subtitle'  => 'Explore the Best Local Businesses in your area',
-                'homepage_banner_intro'    => 'Your trusted online guide to discovering the best local businesses around you. We help you find top-rated services, restaurants, shops, and more all in one place, tailored to your needs.',
+                'homepage_banner_subtitle' => '',
+                'archive_banner_subtitle'  => '',
+                'homepage_banner_intro'    => '',
                 'homepage_banner_bg'       => '',
                 'otherpage_banner_bg'      => '',
 
@@ -172,7 +172,7 @@ function sd_render_kit_settings_fields($post) {
 
     $cta = [
         'cta_title'    => ['CTA Title', 'Main heading for the Call to Action section'],
-        'cta_features' => ['CTA Features (list)', 'Features shown in CTA section, separate by camma'],
+        'cta_features' => ['CTA Description', 'Description shown in CTA section'],
     ];
 
     echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Colors</h2><table class="form-table">';
@@ -231,7 +231,8 @@ function sd_render_kit_settings_fields($post) {
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
         if ($field === 'cta_features') {
-            echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
+            $content = get_post_meta($post->ID, $field, true);
+            wp_editor($content, $field, ['textarea_rows' => 6]);
         } else {
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
         }

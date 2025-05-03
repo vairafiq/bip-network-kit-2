@@ -14,8 +14,15 @@
 function sd_overall_rating_shortcode() {
 
     $post_id        = get_the_ID();
-    $rating         = !empty(get_post_meta($post_id, 'overall_rating', true)) ? get_post_meta($post_id, 'overall_rating', true) : 0;
-    $review_count   = !empty(get_post_meta($post_id, 'review_count', true)) ? get_post_meta($post_id, 'review_count', true) : 0;
+    $rating         = get_post_meta($post_id, 'overall_rating', true);
+    $review_count   = get_post_meta($post_id, 'review_count', true);
+   
+    $rating         = !empty($rating) ? floatval($rating) : 0;
+    $review_count   = !empty($review_count) ? $review_count : 0;
+    
+    // make the rating to a float or int
+
+
 
     $full_stars = floor($rating);
     $half_star = ($rating - $full_stars) >= 0.5;
