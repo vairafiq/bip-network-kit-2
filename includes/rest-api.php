@@ -139,10 +139,13 @@ function bip_get_add_response( $request ) {
         'post_title'   => sanitize_text_field($params['name'][0] ?? 'Untitled'),
         'post_type'    => 'sd_business',
         'post_status'  => 'publish',
-        'post_content' => $description,
+        'post_content' => $description['summary'],
     ];
 
     $post_id = wp_insert_post($post_data);
+
+    update_post_meta( $post_id, 'review_summary', $description['review'] );
+    update_post_meta( $post_id, 'faqs', $description['faqs'] );
 
     if (!is_wp_error($post_id)) {
         foreach ( $params as $key => $value ) {

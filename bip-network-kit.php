@@ -19,6 +19,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/kit-settings.php';
 require_once plugin_dir_path(__FILE__) . 'includes/cpt-business.php';
 require_once plugin_dir_path(__FILE__) . 'includes/rest-api.php';
 require_once plugin_dir_path(__FILE__) . 'includes/helper.php';
+require_once plugin_dir_path(__FILE__) . 'includes/seo.php';
 
 
 // Include components
