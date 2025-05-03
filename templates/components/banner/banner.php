@@ -1,25 +1,23 @@
 <?php
 function sd_page_banner_shortcode($atts) {
-    $atts = shortcode_atts([
-        'image'       => 'https://localnearmedirectory.com/wp-content/uploads/2025/04/banner-scaled.webp',
-        'heading'     => '',
-        'sub-heading' => '',
-        'description' => '',
-    ], $atts, 'sd_page_banner');
+    $image       = !empty($atts['image']) ? $atts['image'] : SD_PLUGIN_URL . 'assets/images/banner1.webp';
+    $heading     = !empty($atts['heading']) ? $atts['heading'] : '';
+    $sub_heading = !empty($atts['sub-heading']) ? $atts['sub-heading'] : '';
+    $description = !empty($atts['description']) ? $atts['description'] : '';
 
     ob_start();
     ?>
-    <div class="sd-page-banner" style="background-image: url('<?php echo esc_url($atts['image']); ?>'); background-size: cover; background-position: center; background-attachment: scroll; color: white; text-align: center; position: relative;">
+    <div class="sd-page-banner" style="background-image: url('<?php echo esc_url($image); ?>'); background-size: cover; background-position: center; background-attachment: scroll; color: white; text-align: center; position: relative;">
         <div class="sd-page-banner-container" style="background: rgba(0,0,0,0.6); display: inline-block; height: 100%; width: 100%;">
             <div class="sd-page-banner-inner">
                 <?php if (!empty($atts['heading'])) : ?>
-                    <h1 class="sd-banner-heading" style="margin-bottom: 10px;"><?php echo esc_html($atts['heading']); ?></h1>
+                    <h1 class="sd-banner-heading" style="margin-bottom: 10px;"><?php echo esc_html($heading); ?></h1>
                 <?php endif; ?>
                 <?php if (!empty($atts['sub-heading'])) : ?>
-                    <span class="sd-banner-sub-heading" style="margin-bottom: 20px; display:inline-block;"><?php echo esc_html($atts['sub-heading']); ?></span>
+                    <span class="sd-banner-sub-heading" style="margin-bottom: 20px; display:inline-block;"><?php echo esc_html($sub_heading); ?></span>
                 <?php endif; ?>
                 <?php if (!empty($atts['description'])) : ?>
-                    <p class="sd-banner-description"><?php echo esc_html($atts['description']); ?></p>
+                    <p class="sd-banner-description"><?php echo esc_html($description); ?></p>
                 <?php endif; ?>
             </div>
         </div>
