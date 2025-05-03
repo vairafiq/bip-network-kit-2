@@ -10,7 +10,7 @@
 
 function sd_faq_accordion_shortcode($atts) {
     $faqs_raw = get_post_meta(get_the_ID(), 'faqs', true);
-    $faqs = unserialize($faqs_raw);
+    $faqs = $faqs_raw;
 
     // Fallback default FAQs if empty or invalid
     if (!is_array($faqs) || empty($faqs)) {
