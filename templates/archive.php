@@ -43,6 +43,21 @@ echo do_shortcode('[sd_header
                         ?>
                     </div>
                 </div>
+                
+                <div style="padding: 20px 0;">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4744853284629324"
+                        crossorigin="anonymous"></script>
+                    <!-- Network Arch -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4744853284629324"
+                        data-ad-slot="8123723940"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
 
                 <!-- Business list starts here -->
                 <div class="sd-business-list">
