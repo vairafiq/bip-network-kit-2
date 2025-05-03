@@ -138,7 +138,6 @@ function sd_single_banner_shortcode() {
                             
                         <?php
                         if ( ! empty( $content ) ) :
-                            $content = wp_kses_post( $content );
                             $words = explode( ' ', wp_strip_all_tags( $content ) );
                             $short_content = implode( ' ', array_slice( $words, 0, 45 ) );
                             ?>
@@ -146,7 +145,7 @@ function sd_single_banner_shortcode() {
                                 <h2 class="sd-single-banner-details-title">About</h2>
                                 <div class="sd-single-banner-details-text">
                                     <p class="short-content"><?php echo esc_html( $short_content ) . '...'; ?></p>
-                                    <p class="full-content" style="display:none;"><?php echo apply_filters('the_content', $content); ?></p>
+                                    <p class="full-content" style="display:none;"><?php echo $content; ?></p>
                                     <a href="#" class="read-more-toggle" style="color:#0073aa;">Read More</a>
         
                                     <span class="sd-devider-line"></span>

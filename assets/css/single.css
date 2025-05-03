@@ -14,11 +14,11 @@
     gap: 4rem;
     grid-template-columns: 1fr 320px;
 }
-.sd-rating-progress {
+.sdl-review-sidebar {
     position: sticky;
     top: 2rem;
 }
-.admin-bar .sd-rating-progress {
+.admin-bar .sdl-review-sidebar {
     position: sticky;
     top: 4rem;
 }
@@ -28,10 +28,10 @@
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    .sd-rating-progress {
+    .sdl-review-sidebar {
         position: static;
     }
-    .admin-bar .sd-rating-progress {
+    .admin-bar .sdl-review-sidebar {
         position: static;
     }
 

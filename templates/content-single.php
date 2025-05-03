@@ -18,8 +18,23 @@
 
 <section class="sdl-review-section">
 
-    <div><?php echo do_shortcode( '[sd_rating_progress]' ); ?></div>
-    <div><?php echo do_shortcode( '[sd_google_reviews]' ); ?></div>
+    <!-- left -->
+    <div>
+        <div class="sdl-review-sidebar">
+            <div><?php echo do_shortcode( '[sd_rating_progress]' ); ?></div>
+            <br>
+            <br>
+            <div><?php echo do_shortcode( '[sd_faq_accordion]' ); ?></div>
+        </div>
+    </div>
+
+    <!-- right -->
+    <div>
+        <div><?php echo do_shortcode( '[sd_review_summary]' ); ?></div>
+        <br>
+        <br>
+        <div><?php echo do_shortcode( '[sd_google_reviews]' ); ?></div>
+    </div>
     
 </section>
 
