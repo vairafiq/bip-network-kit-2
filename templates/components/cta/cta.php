@@ -1,7 +1,7 @@
 <?php
 function sd_add_business_cta_shortcode() {
-    $cta_title = sd_get_kit('cta_title') ?? '';
-    $cta_features_raw = sd_get_kit('cta_features') ?? [];
+    $cta_title = !empty(sd_get_kit('cta_title')) ? sd_get_kit('cta_title') : 'Want to found your business online?';
+    $cta_features_raw = !empty(sd_get_kit('cta_features')) ? sd_get_kit('cta_features') : 'Feature 1, Feature 2, Feature 3, Feature 4, Feature 5';
     $features = array_filter(array_map('trim', explode(",", $cta_features_raw)));
 
     ob_start(); ?>

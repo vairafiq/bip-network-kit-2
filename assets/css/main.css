@@ -1,5 +1,23 @@
 :root {
- 
+    --primary-800: #003C43;
+    --primary-600: #135D66;
+    --primary-400: #77B0AA;
+    --primary-200: #E3FEF7;
+    --primary-100: #f6fffc;
+
+    --accent: #ff9800;
+    --green: #34a853;
+    --red: #EE0000;
+
+    --header-bg: #003C43;
+    --footer-bg: #003C43;
+    
+    --white: #FFFFFF;
+    --lighter: #f4f4f4;
+    --light: #e0e0e0;
+    --gray: #787878;
+    --black: #333333;
+
     --h1: 2.5rem;
     --h2: 1.8rem;
     --h3: 1.4rem;
