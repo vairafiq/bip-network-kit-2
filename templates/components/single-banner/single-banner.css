@@ -91,9 +91,10 @@
 .sd-single-banner-head-social a {
     color: var(--black) !important;
     font-family: var(--small);
-    background: var(--primary-400);
+    background: var(--lighter);
     padding: 0.2rem 0.5rem;
     border-radius: 0.3rem;
+    text-decoration: none !important;
 }
 .sd-single-banner-head-social a:not(:first-child) {
     margin-left: 0.5rem;

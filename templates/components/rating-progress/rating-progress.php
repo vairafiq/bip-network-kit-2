@@ -54,7 +54,7 @@ function sd_rating_progress_shortcode() {
             text-align: center;
         }
         .sd-rating-progress-bar-fill {
-            background: var(--primary-400);
+            background: var(--accent);
         }
     </style>
     <?php
