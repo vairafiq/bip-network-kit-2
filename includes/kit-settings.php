@@ -48,8 +48,6 @@ function sd_create_default_kit_settings_post() {
                 'primary_800' => '#003C43',
                 'primary_600' => '#135D66',
                 'primary_400' => '#77B0AA',
-                'primary_200' => '#E3FEF7',
-                'primary_100' => '#f6fffc',
                 'header_bg'   => '#003C43',
                 'footer_bg'   => '#003C43',
                 'accent'      => '#ff9800',
@@ -143,8 +141,6 @@ function sd_render_kit_settings_fields($post) {
         'primary_800' => 'Primary 800 (#003C43)',
         'primary_600' => 'Primary 600 (#135D66)',
         'primary_400' => 'Primary 400 (#77B0AA)',
-        'primary_200' => 'Primary 200 (#E3FEF7)',
-        'primary_100' => 'Primary 100 (#f6fffc)',
         'header_bg'   => 'Header Background (#003C43)',
         'footer_bg'   => 'Footer Background (#003C43)',
         'accent'      => 'Accent (#ff9800)',
@@ -250,7 +246,7 @@ function sd_save_kit_settings_fields($post_id) {
 
     $fields = [
         // Colors
-        'primary_800', 'primary_600', 'primary_400', 'primary_200', 'primary_100',
+        'primary_800', 'primary_600', 'primary_400',
         'header_bg', 'footer_bg',
         'accent', 'green', 'red', 'white', 'lighter', 'light', 'gray', 'black',
         // Banner
@@ -263,7 +259,11 @@ function sd_save_kit_settings_fields($post_id) {
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            $value = $field === 'about_content' ? wp_kses_post($_POST[$field]) : sanitize_text_field($_POST[$field]);
+            if (in_array($field, ['about_content', 'cta_features'])) {
+                $value = wp_kses_post($_POST[$field]);
+            } else {
+                $value = sanitize_text_field($_POST[$field]);
+            }
             update_post_meta($post_id, $field, $value);
         }
     }

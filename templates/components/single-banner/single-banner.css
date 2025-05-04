@@ -91,7 +91,7 @@
 .sd-single-banner-head-social a {
     color: var(--black) !important;
     font-family: var(--small);
-    background: var(--primary-200);
+    background: var(--primary-400);
     padding: 0.2rem 0.5rem;
     border-radius: 0.3rem;
 }
