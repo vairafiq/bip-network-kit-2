@@ -147,6 +147,10 @@ function bip_get_add_response( $request ) {
     update_post_meta( $post_id, 'review_summary', $description['review'] );
     update_post_meta( $post_id, 'faqs', $description['faqs'] );
 
+    if( ! empty( $description['menu'] ) ) {
+        update_post_meta( $post_id, 'menu', $description['menu'] );
+    }
+
     if (!is_wp_error($post_id)) {
         foreach ( $params as $key => $value ) {
             if ( $key === 'name' ) continue;

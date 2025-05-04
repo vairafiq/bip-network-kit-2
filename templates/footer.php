@@ -21,7 +21,7 @@
             <div class="sd-footer-contacts">
                 <span class="footer-header" style="text-transform:none !important;">Decided to be included here?</span>
                 <div>
-                    <a href="https://bippermedia.com/add-network-business/" class="sd-btn-red" aria-label="Add your business">
+                    <a href="https://bippermedia.com/add-network-business/" class="sd-btn-secondary" aria-label="Add your business">
                         <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
                     </a>
                 </div>

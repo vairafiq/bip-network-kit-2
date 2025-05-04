@@ -17,6 +17,55 @@ function add_business_schema_to_head() {
 
     $post_id = get_the_ID();
 
+    // === Category to Schema Type Mapping ===
+    $schema_type_map = [
+        'restaurant'     => 'Restaurant',
+        'steak house'    => 'SteakHouse',
+        'bar'            => 'BarOrPub',
+        'cafe'           => 'CafeOrCoffeeShop',
+        'bakery'         => 'Bakery',
+        'fast food'      => 'FastFoodRestaurant',
+        'ice cream'      => 'IceCreamShop',
+        'hotel'          => 'Hotel',
+        'salon'          => 'HairSalon',
+        'barbershop'     => 'Barbershop',
+        'spa'            => 'DaySpa',
+        'gym'            => 'HealthClub',
+        'doctor'         => 'MedicalClinic',
+        'dentist'        => 'Dentist',
+        'pharmacy'       => 'Pharmacy',
+        'vet'            => 'VeterinaryCare',
+        'lawyer'         => 'LegalService',
+        'accountant'     => 'AccountingService',
+        'auto repair'    => 'AutoRepair',
+        'car dealer'     => 'AutoDealer',
+        'real estate'    => 'RealEstateAgent',
+        'plumber'        => 'Plumber',
+        'electrician'    => 'Electrician',
+        'locksmith'      => 'Locksmith',
+        'pet store'      => 'PetStore',
+        'clothing'       => 'ClothingStore',
+        'grocery'        => 'GroceryStore',
+        'bookstore'      => 'BookStore',
+        'furniture'      => 'FurnitureStore',
+        'jewelry'        => 'JewelryStore',
+        'electronics'    => 'ElectronicsStore',
+        'toys'           => 'ToyStore',
+    ];
+
+    // === Get primary category from taxonomy and determine @type
+    $schema_type = 'LocalBusiness';
+    $terms = get_the_terms($post_id, 'sd_business_category');
+    if (!empty($terms) && !is_wp_error($terms)) {
+        $primary_term_name = strtolower($terms[0]->name); // assuming first term is primary
+        foreach ($schema_type_map as $key => $mapped_type) {
+            if (strpos($primary_term_name, $key) !== false) {
+                $schema_type = $mapped_type;
+                break;
+            }
+        }
+    }
+
     // === Reviews ===
     $structured_reviews = [];
     $reviews_meta = get_post_meta($post_id, 'google_reviews', true);
@@ -24,12 +73,11 @@ function add_business_schema_to_head() {
 
     if (!empty($unwrapped['reviews']) && is_array($unwrapped['reviews'])) {
         $reviews = array_slice($unwrapped['reviews'], 0, 2);
-
         $structured_reviews = array_map(function($review) {
             return [
                 "@type" => "Review",
                 "author" => $review['name'] ?? 'Anonymous',
-                "datePublished" => date('Y-m-d'), // Replace with real date if available
+                "datePublished" => date('Y-m-d'),
                 "reviewBody" => $review['text'] ?? '',
                 "reviewRating" => [
                     "@type" => "Rating",
@@ -42,7 +90,7 @@ function add_business_schema_to_head() {
     // === FAQ Schema ===
     $faq_schema = null;
     $faq_meta = get_post_meta($post_id, 'faqs', true);
-    $faq_array = is_string($faq_meta) ? @unserialize($faq_meta) : [];
+    $faq_array = is_string($faq_meta) ? @unserialize($faq_meta) : $faq_meta;
 
     if (!empty($faq_array) && is_array($faq_array)) {
         $faq_schema = [
@@ -65,14 +113,14 @@ function add_business_schema_to_head() {
         }
 
         if (empty($faq_schema['mainEntity'])) {
-            $faq_schema = null; // Avoid outputting empty FAQ schema
+            $faq_schema = null;
         }
     }
 
     // === Business Schema ===
     $schema = [
         "@context" => "https://schema.org",
-        "@type" => "LocalBusiness",
+        "@type" => $schema_type,
         "name" => get_the_title($post_id),
         "image" => [
             "@type" => "ImageObject",
@@ -86,7 +134,7 @@ function add_business_schema_to_head() {
         "openingHours" => "Mo-Su 12:00-18:00",
     ];
 
-    // Add reviews only if available
+    // Add reviews
     if (!empty($structured_reviews)) {
         $schema["aggregateRating"] = [
             "@type" => "AggregateRating",
@@ -96,10 +144,42 @@ function add_business_schema_to_head() {
         $schema["review"] = $structured_reviews;
     }
 
-    // Output schemas
-    echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>';
+    // === Menu Schema (if menu meta exists) ===
+    $menu_meta = get_post_meta($post_id, 'menu', true);
+    $menu_items = is_string($menu_meta) ? @unserialize($menu_meta) : $menu_meta;
+
+    if (!empty($menu_items) && is_array($menu_items)) {
+        $structured_menu_items = array_map(function($item) {
+            return [
+                "@type" => "MenuItem",
+                "name" => $item['name'] ?? '',
+                "description" => $item['description'] ?? '',
+                "offers" => [
+                    "@type" => "Offer",
+                    "price" => $item['price'] ?? '',
+                    "priceCurrency" => "USD"
+                ]
+            ];
+        }, $menu_items);
+
+        $schema["hasMenu"] = [
+            "@type" => "Menu",
+            "name" => "Main Menu",
+            "hasMenuSection" => [
+                [
+                    "@type" => "MenuSection",
+                    "name" => "Featured Items",
+                    "hasMenuItem" => $structured_menu_items
+                ]
+            ]
+        ];
+    }
+
+    // === Output JSON-LD ===
+    echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
 
     if (!empty($faq_schema)) {
-        echo '<script type="application/ld+json">' . json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>';
+        echo '<script type="application/ld+json">' . json_encode($faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
     }
 }
+

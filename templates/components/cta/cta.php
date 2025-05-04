@@ -1,11 +1,11 @@
 <?php
 function sd_add_business_cta_shortcode() {
     $cta_title = sd_get_kit('cta_title');
-    $cta_features = sd_get_kit('cta_features');
+    $cta_content = sd_get_kit('cta_content');
 
     // Fallback to default title if not set
     $cta_title = !empty($cta_title) ? $cta_title : 'Want add your business to our network?';
-    $cta_features = !empty($cta_features) ? $cta_features : '';
+    $cta_content = !empty($cta_content) ? $cta_content : '';
     
     ob_start(); ?>
     
@@ -16,7 +16,7 @@ function sd_add_business_cta_shortcode() {
             </div>
             <div class="sd-cta-features">
                 <?php 
-                    echo '<div class="sd-cta-feature"><span> ' . wp_kses_post($cta_features) . '</span></div>';
+                    echo '<div class="sd-cta-feature"><span> ' . wp_kses_post($cta_content) . '</span></div>';
                 ?>
             </div>
             <div class="sd-cta-button">

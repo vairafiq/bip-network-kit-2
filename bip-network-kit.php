@@ -115,7 +115,7 @@ function sd_enqueue_cdn() {
  * and outputs <style>:root { ... }</style> in the <head> section
  * with all defined color variables from the custom fields.
  * 
- * Variables can be used in your theme with: var(--primary-800), var(--accent), etc.
+ * Variables can be used in your theme with: var(--primary), var(--accent), etc.
  */
 function sd_output_kit_settings_css() {
     // Get the latest published kit_settings post
@@ -130,11 +130,11 @@ function sd_output_kit_settings_css() {
     $post_id = $settings[0]->ID;
 
     $css_vars = [
-        'primary-800' => get_post_meta($post_id, 'primary_800', true),
-        'primary-600' => get_post_meta($post_id, 'primary_600', true),
-        'primary-400' => get_post_meta($post_id, 'primary_400', true),
-        'primary-200' => get_post_meta($post_id, 'primary_200', true),
-        'primary-100' => get_post_meta($post_id, 'primary_100', true),
+        'primary'           => get_post_meta($post_id, 'primary', true),
+        'primary-hover'     => get_post_meta($post_id, 'primary_hover', true),
+        'secondary'         => get_post_meta($post_id, 'secondary', true),
+        'secondary-hover'   => get_post_meta($post_id, 'secondary_hover', true),
+
         'header-bg'   => get_post_meta($post_id, 'header_bg', true),
         'footer-bg'   => get_post_meta($post_id, 'footer_bg', true),
         'accent'      => get_post_meta($post_id, 'accent', true),

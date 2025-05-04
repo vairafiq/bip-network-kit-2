@@ -53,7 +53,7 @@
     border-radius: 0 !important;
 }
 .sd-footer-newsletter form button:hover {
-	background: var(--primary-600);
+	background: var(--primary);
 }
 .sd-footer-newsletter form input {
 	border: none;
@@ -69,7 +69,7 @@
 .sd-footer-social a {
     color: var(--white) !important;
     font-size: var(--h4);
-    background: var(--primary-600);
+    background: var(--primary);
     padding: 0.5rem 1rem;
 }
 .sd-footer-social a:hover i,
@@ -87,7 +87,7 @@
 }
 .sd-footer-bottom {
     background: var(--footer-bg);
-    border-top: 1px solid var(--primary-400);
+    border-top: 1px solid var(--primary);
     padding: 1rem;
 }
 .sd-footer-copyright {

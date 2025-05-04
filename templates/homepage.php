@@ -1,14 +1,19 @@
 
 <?php
-$site_title = get_bloginfo('name') ?? '';
-$sub_title = sd_get_kit('homepage_banner_subtitle') ?? '';
-$intro = sd_get_kit('homepage_banner_intro') ?? '';
+$title = sd_get_kit('homepage_banner_title') ?? '';
+$title = !empty($title) ? $title : get_bloginfo('name');
+$description = sd_get_kit('homepage_banner_description') ?? '';
 $bg_url = sd_get_kit('homepage_banner_bg') ?? '';
+
+$meta_title = sd_get_kit('homepage_meta_title') ?? '';
+$meta_description = sd_get_kit('homepage_meta_description') ?? '';
+
 echo do_shortcode('[sd_header 
     image="'.$bg_url.'"
-    heading="'.$site_title.'" 
-    sub-heading="'.$sub_title.'" 
-    description="'.$intro.'"]');
+    heading="'.$title.'" 
+    sub-heading="'.$description.'"
+    meta-title="'.$meta_title.'"
+    meta-description="'.$meta_description.'"]');
 ?>
 
 
