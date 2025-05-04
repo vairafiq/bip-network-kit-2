@@ -244,3 +244,36 @@ function sd_save_business_fields($post_id) {
     }
 }
 add_action('save_post', 'sd_save_business_fields');
+
+
+add_action( 'init', 'sd_cleanup_business_posts' );
+
+function sd_cleanup_business_posts() {
+    $current_cleanup_version = '1.0.0'; // Change this when you want to run cleanup again
+    $option_key = 'sd_business_cleanup_version';
+
+    // Get the current saved version
+    $saved_version = get_option( $option_key );
+
+    // If versions match, skip cleanup
+    if ( $saved_version === $current_cleanup_version ) {
+        return;
+    }
+
+    // Get all posts of custom post type 'sd_business'
+    $posts = get_posts( [
+        'post_type'      => 'sd_business',
+        'posts_per_page' => -1,
+        'post_status'    => 'any',
+        'fields'         => 'ids',
+    ] );
+
+    // Delete each post and its meta
+    foreach ( $posts as $post_id ) {
+        wp_delete_post( $post_id, true ); // true for force delete (bypass trash)
+    }
+
+    // Update the version in the options table
+    update_option( $option_key, $current_cleanup_version );
+}
+
