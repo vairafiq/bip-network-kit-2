@@ -257,9 +257,9 @@ function sd_render_kit_settings_fields($post) {
         echo '<tr>
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
-        if(in_array($field, ['homepage_banner_title', 'cta_title'])) {
+        if(in_array($field, ['homepage_banner_title', 'cta_title', 'homepage_meta_title'])) {
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
-        } elseif (in_array($field, ['homepage_meta_title', 'homepage_meta_description', 'homepage_banner_description'])) {
+        } elseif (in_array($field, ['homepage_meta_description', 'homepage_banner_description'])) {
             echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
         } elseif ($field === 'about_content' || $field === 'cta_content') {
             $content = get_post_meta($post->ID, $field, true);
@@ -280,9 +280,9 @@ function sd_render_kit_settings_fields($post) {
         echo '<tr>
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
-        if($field === 'archive_banner_title') {
+        if($field === 'archive_banner_title' || $field === 'archive_meta_title') {
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
-        } elseif (in_array($field, ['archive_meta_title', 'archive_meta_description', 'archive_banner_description'])) {
+        } elseif (in_array($field, ['archive_meta_description', 'archive_banner_description'])) {
             echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
         } elseif($field === 'archive_banner_bg') {
             $preview_id = $field . '_preview';
