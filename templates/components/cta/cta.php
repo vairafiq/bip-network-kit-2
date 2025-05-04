@@ -1,9 +1,12 @@
 <?php
 function sd_add_business_cta_shortcode() {
-    $cta_title = !empty(sd_get_kit('cta_title')) ? sd_get_kit('cta_title') : 'Want to found your business online?';
-    $cta_features_raw = !empty(sd_get_kit('cta_features')) ? sd_get_kit('cta_features') : 'Feature 1, Feature 2, Feature 3, Feature 4, Feature 5';
-    $features = array_filter(array_map('trim', explode(",", $cta_features_raw)));
+    $cta_title = sd_get_kit('cta_title');
+    $cta_features = sd_get_kit('cta_features');
 
+    // Fallback to default title if not set
+    $cta_title = !empty($cta_title) ? $cta_title : 'Want add your business to our network?';
+    $cta_features = !empty($cta_features) ? $cta_features : '';
+    
     ob_start(); ?>
     
     <div class="sd-cta-wrapper">
@@ -12,9 +15,9 @@ function sd_add_business_cta_shortcode() {
                 <h2 class="sd-cta-title"><?php echo esc_html($cta_title); ?></h2>
             </div>
             <div class="sd-cta-features">
-                <?php foreach ($features as $feature) {
-                    echo '<div class="sd-cta-feature"><span class="sd-checkmark">✔</span><span> ' . esc_html($feature) . '</span></div>';
-                } ?>
+                <?php 
+                    echo '<div class="sd-cta-feature"><span> ' . wp_kses_post($cta_features) . '</span></div>';
+                ?>
             </div>
             <div class="sd-cta-button">
                 <a href="https://bippermedia.com/add-network-business/" class="sd-btn-primary">Add Your Business</a>

@@ -48,8 +48,6 @@ function sd_create_default_kit_settings_post() {
                 'primary_800' => '#003C43',
                 'primary_600' => '#135D66',
                 'primary_400' => '#77B0AA',
-                'primary_200' => '#E3FEF7',
-                'primary_100' => '#f6fffc',
                 'header_bg'   => '#003C43',
                 'footer_bg'   => '#003C43',
                 'accent'      => '#ff9800',
@@ -61,9 +59,9 @@ function sd_create_default_kit_settings_post() {
                 'gray'        => '#787878',
                 'black'       => '#333333',
 
-                'homepage_banner_subtitle' => 'Explore the Best Local Businesses in your area',
-                'archive_banner_subtitle'  => 'Explore the Best Local Businesses in your area',
-                'homepage_banner_intro'    => 'Your trusted online guide to discovering the best local businesses around you. We help you find top-rated services, restaurants, shops, and more all in one place, tailored to your needs.',
+                'homepage_banner_subtitle' => '',
+                'archive_banner_subtitle'  => '',
+                'homepage_banner_intro'    => '',
                 'homepage_banner_bg'       => '',
                 'otherpage_banner_bg'      => '',
 
@@ -143,8 +141,6 @@ function sd_render_kit_settings_fields($post) {
         'primary_800' => 'Primary 800 (#003C43)',
         'primary_600' => 'Primary 600 (#135D66)',
         'primary_400' => 'Primary 400 (#77B0AA)',
-        'primary_200' => 'Primary 200 (#E3FEF7)',
-        'primary_100' => 'Primary 100 (#f6fffc)',
         'header_bg'   => 'Header Background (#003C43)',
         'footer_bg'   => 'Footer Background (#003C43)',
         'accent'      => 'Accent (#ff9800)',
@@ -172,7 +168,7 @@ function sd_render_kit_settings_fields($post) {
 
     $cta = [
         'cta_title'    => ['CTA Title', 'Main heading for the Call to Action section'],
-        'cta_features' => ['CTA Features (list)', 'Features shown in CTA section, separate by camma'],
+        'cta_features' => ['CTA Description', 'Description shown in CTA section'],
     ];
 
     echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Colors</h2><table class="form-table">';
@@ -231,7 +227,8 @@ function sd_render_kit_settings_fields($post) {
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
         if ($field === 'cta_features') {
-            echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
+            $content = get_post_meta($post->ID, $field, true);
+            wp_editor($content, $field, ['textarea_rows' => 6]);
         } else {
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
         }
@@ -249,7 +246,7 @@ function sd_save_kit_settings_fields($post_id) {
 
     $fields = [
         // Colors
-        'primary_800', 'primary_600', 'primary_400', 'primary_200', 'primary_100',
+        'primary_800', 'primary_600', 'primary_400',
         'header_bg', 'footer_bg',
         'accent', 'green', 'red', 'white', 'lighter', 'light', 'gray', 'black',
         // Banner
@@ -262,7 +259,11 @@ function sd_save_kit_settings_fields($post_id) {
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            $value = $field === 'about_content' ? wp_kses_post($_POST[$field]) : sanitize_text_field($_POST[$field]);
+            if (in_array($field, ['about_content', 'cta_features'])) {
+                $value = wp_kses_post($_POST[$field]);
+            } else {
+                $value = sanitize_text_field($_POST[$field]);
+            }
             update_post_meta($post_id, $field, $value);
         }
     }
