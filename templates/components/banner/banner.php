@@ -3,7 +3,6 @@ function sd_page_banner_shortcode($atts) {
     $image       = !empty($atts['image']) ? $atts['image'] : SD_PLUGIN_URL . 'assets/images/banner1.webp';
     $heading     = !empty($atts['heading']) ? $atts['heading'] : '';
     $sub_heading = !empty($atts['sub-heading']) ? $atts['sub-heading'] : '';
-    $description = !empty($atts['description']) ? $atts['description'] : '';
 
     ob_start();
     ?>
@@ -15,9 +14,6 @@ function sd_page_banner_shortcode($atts) {
                 <?php endif; ?>
                 <?php if (!empty($atts['sub-heading'])) : ?>
                     <span class="sd-banner-sub-heading" style="margin-bottom: 20px; display:inline-block;"><?php echo esc_html($sub_heading); ?></span>
-                <?php endif; ?>
-                <?php if (!empty($atts['description'])) : ?>
-                    <p class="sd-banner-description"><?php echo esc_html($description); ?></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -37,15 +33,7 @@ function sd_page_banner_shortcode($atts) {
             font-weight: bold;
         }
         .sd-banner-sub-heading {
-            font-size: 1.5rem;
-            font-weight: 300;
-        }
-        .sd-banner-sub-heading {
-            font-size: 1.5rem;
-            font-weight: 300;
-        }
-        .sd-banner-description {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 300;
         }
         @media (max-width: 768px) {

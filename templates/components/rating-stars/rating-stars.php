@@ -52,7 +52,7 @@ function sd_rating_stars_shortcode($atts) {
             }
 
             .sd-overall-rating .sd-star-filled {
-                color: var(--primary-600); /* Green for filled stars */
+                color: var(--accent); /* Accent for filled stars */
             }
             .sd-overall-count {
                 font-weight: 500;

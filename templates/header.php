@@ -6,10 +6,13 @@ function sd_header_shortcode($atts) {
 
     $atts = shortcode_atts([
         'image' => '',
-        'heading' => get_bloginfo('name'),
+        'heading' => '',
         'sub-heading' => '',
-        'description' => '',
+        'meta-title' => '',
+        'meta-description' => '',
     ], $atts, 'sd_header');
+
+
 
     ob_start(); ?>
 
@@ -18,7 +21,8 @@ function sd_header_shortcode($atts) {
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php wp_title(); ?></title>
+        <title><?php echo $atts['meta-title']; ?></title>
+        <meta name="description" content="<?php echo $atts['meta-description']; ?>"/>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,7 +99,7 @@ function sd_header_shortcode($atts) {
                         </li>
                         <li class="sd-menu-item-wrapper">
                             <span class="sd-menu-item">
-                                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-red" aria-label="Add your business">
+                                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-secondary" aria-label="Add your business">
                                     <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
                                 </a>
                                 
@@ -125,16 +129,14 @@ function sd_header_shortcode($atts) {
 
         <!-- Page Banner -->
         <?php
-        
-        $image = $atts['image'];
-        $heading = $atts['heading'];
-        $sub_heading = $atts['sub-heading'];
-        $description = $atts['description'];
-        echo do_shortcode('[sd_page_banner 
-        image="'.$image.'"
-        heading="'.$heading.'" 
-        sub-heading="'.$sub_heading.'" 
-        description="'.$description.'"]');
+            $image = $atts['image'];
+            $heading = $atts['heading'];
+            $sub_heading = $atts['sub-heading'];
+            
+            echo do_shortcode('[sd_page_banner 
+            image="'.$image.'"
+            heading="'.$heading.'" 
+            sub-heading="'.$sub_heading.'"]');
         ?>
     </header>
 

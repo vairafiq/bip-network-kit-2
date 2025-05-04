@@ -45,31 +45,43 @@ function sd_create_default_kit_settings_post() {
 
         if ($post_id) {
             $default_values = [
-                'primary_800' => '#003C43',
-                'primary_600' => '#135D66',
-                'primary_400' => '#77B0AA',
-                'header_bg'   => '#003C43',
-                'footer_bg'   => '#003C43',
-                'accent'      => '#ff9800',
+                'primary'           => '#333333',
+                'primary_hover'     => '#000000',
+                'secondary'         => '#EE0000',
+                'secondary_hover'   => '#DB0000',
+
+                'header_bg'   => '#333333',
+                'footer_bg'   => '#333333',
+
+                'accent'      => '#ff297e',
                 'green'       => '#34a853',
                 'red'         => '#EE0000',
+
                 'white'       => '#FFFFFF',
                 'lighter'     => '#f4f4f4',
                 'light'       => '#e0e0e0',
                 'gray'        => '#787878',
                 'black'       => '#333333',
 
-                'homepage_banner_subtitle' => '',
-                'archive_banner_subtitle'  => '',
-                'homepage_banner_intro'    => '',
-                'homepage_banner_bg'       => '',
-                'otherpage_banner_bg'      => '',
+                'homepage_meta_title'           => '',
+                'homepage_meta_description'     => '',
+                'homepage_banner_bg'            => '',
+                'homepage_banner_title'         => '',
+                'homepage_banner_description'   => '',
+                'about_content'                 => '',
+                'about_image'                   => '',
+                'cta_title'                     => '',
+                'cta_content'                   => '',
 
-                'about_image'              => '',
-                'about_content'            => '',
+                'archive_meta_title'            => '',
+                'archive_meta_description'      => '',
+                'archive_banner_bg'             => '',
+                'archive_banner_title'          => '',
+                'archive_banner_description'    => '',
 
-                'cta_title'                => '',
-                'cta_features'             => '',
+
+
+
             ];
 
             foreach ($default_values as $key => $value) {
@@ -96,6 +108,19 @@ add_action('add_meta_boxes', 'sd_kit_settings_meta_boxes');
 // Render Fields
 function sd_render_kit_settings_fields($post) {
     wp_nonce_field('sd_save_kit_settings_fields', 'sd_kit_settings_nonce');
+
+    // Default values
+    $default_values = [
+        'primary'           => '#333333',
+        'primary_hover'     => '#000000',
+        'secondary'         => '#EE0000',
+        'secondary_hover'   => '#DB0000',
+
+        'header_bg'   => '#333333',
+        'footer_bg'   => '#333333',
+
+        'accent'      => '#ff297e',
+    ];
 
     // Enqueue media uploader scripts
     wp_enqueue_media();
@@ -127,6 +152,26 @@ function sd_render_kit_settings_fields($post) {
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const rows = document.querySelectorAll("#color-fields tr");
+
+            rows.forEach(row => {
+                const textInput = row.querySelector(".color-text");
+                const colorInput = row.querySelector(".color-picker");
+
+                if (textInput && colorInput) {
+                    textInput.addEventListener("input", () => {
+                        colorInput.value = textInput.value;
+                    });
+
+                    colorInput.addEventListener("input", () => {
+                        textInput.value = colorInput.value;
+                    });
+                }
+            });
+        });
+    </script>
     <style>
         .image-preview {
             max-width: 200px;
@@ -138,103 +183,117 @@ function sd_render_kit_settings_fields($post) {
 
     <?php
     $colors = [
-        'primary_800' => 'Primary 800 (#003C43)',
-        'primary_600' => 'Primary 600 (#135D66)',
-        'primary_400' => 'Primary 400 (#77B0AA)',
-        'header_bg'   => 'Header Background (#003C43)',
-        'footer_bg'   => 'Footer Background (#003C43)',
-        'accent'      => 'Accent (#ff9800)',
-        'green'       => 'Green (#34a853)',
-        'red'         => 'Red (#EE0000)',
-        'white'       => 'White (#FFFFFF)',
-        'lighter'     => 'Lighter (#f4f4f4)',
-        'light'       => 'Light (#e0e0e0)',
-        'gray'        => 'Gray (#787878)',
-        'black'       => 'Black (#333333)',
+        'primary' => [
+            'Primary Color',
+            'Used for normal buttons, archive badges and pagination elements.'
+        ],
+        'primary_hover' => [
+            'Primary Hover Color',
+            'Hover over primary buttons.'
+        ],
+        'secondary' => [
+            'Secondary Color',
+            'Used for business buttons.'
+        ],
+        'secondary_hover' => [
+            'Secondary Hover Color',
+            'Hover over business buttons.'
+        ],
+        'header_bg' => [
+            'Header Background',
+            'Background color of the website header.'
+        ],
+        'footer_bg' => [
+            'Footer Background',
+            'Background color of the website footer.'
+        ],
+        'accent' => [
+            'Accent Color',
+            'Used for links, star icons, star progress bars and hover/active states of menu items.'
+        ],
     ];
 
-    $banner = [
-        'homepage_banner_subtitle' => ['Homepage Banner Sub-title', 'Text under the homepage banner title'],
-        'archive_banner_subtitle'  => ['Archive Banner Sub-title', 'Text under the archive page banner title'],
-        'homepage_banner_intro'    => ['Homepage Banner Intro', 'Short intro/description in the homepage banner'],
-        'homepage_banner_bg'       => ['Homepage Banner Background Image', 'Background image for homepage banner'],
-        'otherpage_banner_bg'      => ['Other Page Banner Background Image', 'Background image for inner page banners'],
-    ];
 
-    $about = [
-        'about_image'   => ['About Section Image', 'Image used in the About section'],
-        'about_content' => ['About Section Content', 'Content for the About section (supports formatting)'],
+    $home = [
+        'homepage_meta_title'         => ['Homepage Meta Title', 'SEO title for the homepage (shown in search results)'],
+        'homepage_meta_description'   => ['Homepage Meta Description', 'SEO description for the homepage (shown in search results)'],
+        'homepage_banner_bg'          => ['Homepage Banner Background Image', 'Background image displayed in the homepage banner section'],
+        'homepage_banner_title'       => ['Homepage Banner Title', 'Main heading text shown in the homepage banner'],
+        'homepage_banner_description' => ['Homepage Banner Description', 'Short description or tagline displayed under the homepage banner title'],
+        'about_content'               => ['About Section Content', 'Formatted content shown in the About section on the homepage'],
+        'about_image'                 => ['About Section Image', 'Image displayed alongside the About section content'],
+        'cta_title'                   => ['CTA Title', 'Heading for the Call-to-Action section on the homepage'],
+        'cta_content'                 => ['CTA Content', 'Descriptive content or list shown in the Call-to-Action section'],
     ];
-
-    $cta = [
-        'cta_title'    => ['CTA Title', 'Main heading for the Call to Action section'],
-        'cta_features' => ['CTA Description', 'Description shown in CTA section'],
+    
+    $archive = [
+        'archive_meta_title'          => ['Archive Meta Title', 'SEO title for archive pages (e.g. category, tag)'],
+        'archive_meta_description'    => ['Archive Meta Description', 'SEO description for archive pages'],
+        'archive_banner_bg'           => ['Archive Banner Background Image', 'Background image used in the archive page banner'],
+        'archive_banner_title'        => ['Archive Banner Title', 'Main heading text for archive page banners'],
+        'archive_banner_description'  => ['Archive Banner Description', 'Short description shown beneath the archive banner title'],
     ];
+    
+    // Display the fields
+    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Colors</h2><table class="form-table" id="color-fields">';
+    foreach ($colors as $field => [$label, $description]) {
+        $saved_value = get_post_meta($post->ID, $field, true);
+        $value = !empty($saved_value) ? $saved_value : ($default_values[$field] ?? '#000000');
 
-    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Colors</h2><table class="form-table">';
-    foreach ($colors as $field => $label) {
-        $value = get_post_meta($post->ID, $field, true);
         echo '<tr>
-            <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
-            <td><input type="color" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" style="width: 300px; height: 40px;"></td>
+            <th><label>' . esc_html($label) . '</label></th>
+            <td>
+                <input type="text" class="color-text" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" style="width: 300px; height: 40px;">
+                <input type="color" class="color-picker" value="' . esc_attr($value) . '" style="width: 300px; height: 40px;">
+                <p class="description">' . esc_html($description) . '</p>
+            </td>
         </tr>';
     }
     echo '</table>';
 
-    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Banner / Hero</h2><table class="form-table">';
-    foreach ($banner as $field => [$label, $description]) {
+    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Home</h2><table class="form-table">';
+    foreach ($home as $field => [$label, $description]) {
         $value = get_post_meta($post->ID, $field, true);
         echo '<tr>
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
-        if ($field === 'homepage_banner_intro') {
+        if(in_array($field, ['homepage_banner_title', 'cta_title'])) {
+            echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
+        } elseif (in_array($field, ['homepage_meta_title', 'homepage_meta_description', 'homepage_banner_description'])) {
             echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
-        } elseif (in_array($field, ['homepage_banner_bg', 'otherpage_banner_bg'])) {
-            $preview_id = $field . '_preview';
-            echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
-            echo '<button class="button image-upload-button" data-input="' . esc_attr($field) . '" data-preview="' . $preview_id . '">Upload Image</button>';
-            echo '<img id="' . $preview_id . '" src="' . esc_url($value) . '" class="image-preview" style="' . ($value ? '' : 'display:none;') . '" />';
-        } else {
-            echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
-        }
-        echo '<p class="description">' . esc_html($description) . '</p></td></tr>';
-    }
-    echo '</table>';
-
-    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">About Section</h2><table class="form-table">';
-    foreach ($about as $field => [$label, $description]) {
-        echo '<tr>
-            <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
-            <td>';
-        if ($field === 'about_content') {
+        } elseif ($field === 'about_content' || $field === 'cta_content') {
             $content = get_post_meta($post->ID, $field, true);
             wp_editor($content, $field, ['textarea_rows' => 6]);
-        } else {
-            $value = get_post_meta($post->ID, $field, true);
+        } elseif (in_array($field, ['homepage_banner_bg', 'about_image'])) {
             $preview_id = $field . '_preview';
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
             echo '<button class="button image-upload-button" data-input="' . esc_attr($field) . '" data-preview="' . $preview_id . '">Upload Image</button>';
             echo '<img id="' . $preview_id . '" src="' . esc_url($value) . '" class="image-preview" style="' . ($value ? '' : 'display:none;') . '" />';
-        }
+        } 
         echo '<p class="description">' . esc_html($description) . '</p></td></tr>';
     }
     echo '</table>';
 
-    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">CTA Section</h2><table class="form-table">';
-    foreach ($cta as $field => [$label, $description]) {
+    echo '<h2 style="font-size:20px;font-weight:600;padding:20px 0 10px 0;">Archive</h2><table class="form-table">';
+    foreach ($archive as $field => [$label, $description]) {
         $value = get_post_meta($post->ID, $field, true);
         echo '<tr>
             <th><label for="' . esc_attr($field) . '">' . esc_html($label) . '</label></th>
             <td>';
-        if ($field === 'cta_features') {
-            $content = get_post_meta($post->ID, $field, true);
-            wp_editor($content, $field, ['textarea_rows' => 6]);
-        } else {
+        if($field === 'archive_banner_title') {
             echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
-        }
+        } elseif (in_array($field, ['archive_meta_title', 'archive_meta_description', 'archive_banner_description'])) {
+            echo '<textarea id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" rows="4" class="widefat">' . esc_textarea($value) . '</textarea>';
+        } elseif($field === 'archive_banner_bg') {
+            $preview_id = $field . '_preview';
+            echo '<input type="text" id="' . esc_attr($field) . '" name="' . esc_attr($field) . '" value="' . esc_attr($value) . '" class="widefat" />';
+            echo '<button class="button image-upload-button" data-input="' . esc_attr($field) . '" data-preview="' . $preview_id . '">Upload Image</button>';
+            echo '<img id="' . $preview_id . '" src="' . esc_url($value) . '" class="image-preview" style="' . ($value ? '' : 'display:none;') . '" />';
+        } 
         echo '<p class="description">' . esc_html($description) . '</p></td></tr>';
     }
     echo '</table>';
+
 }
 
 
@@ -246,20 +305,23 @@ function sd_save_kit_settings_fields($post_id) {
 
     $fields = [
         // Colors
-        'primary_800', 'primary_600', 'primary_400',
+        'primary', 'primary_hover', 'secondary', 'secondary_hover',
         'header_bg', 'footer_bg',
-        'accent', 'green', 'red', 'white', 'lighter', 'light', 'gray', 'black',
-        // Banner
-        'homepage_banner_subtitle', 'archive_banner_subtitle', 'homepage_banner_intro', 'homepage_banner_bg', 'otherpage_banner_bg',
-        // About
-        'about_image', 'about_content',
-        // CTA
-        'cta_title', 'cta_features'
+        'accent', 'green', 'red', 'white',
+        'lighter', 'light', 'gray', 'black',
+        // Home
+        'homepage_meta_title', 'homepage_meta_description',
+        'homepage_banner_bg', 'homepage_banner_title', 'homepage_banner_description',
+        'about_content', 'about_image',
+        'cta_title', 'cta_content',
+        // Archive
+        'archive_meta_title', 'archive_meta_description',
+        'archive_banner_bg', 'archive_banner_title', 'archive_banner_description',
     ];
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            if (in_array($field, ['about_content', 'cta_features'])) {
+            if (in_array($field, ['about_content', 'cta_content'])) {
                 $value = wp_kses_post($_POST[$field]);
             } else {
                 $value = sanitize_text_field($_POST[$field]);

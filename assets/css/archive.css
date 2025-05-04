@@ -109,7 +109,7 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: var(--primary-600);
+    background-color: var(--primary);
     padding: 5px 10px;
     border-radius: 5px;
     font-size: var(--small);
@@ -181,7 +181,7 @@
         font-size: 16px;
     }
     .sd-archive-item-divider {
-        border-top: 1px solid #e7e7e7 !important;
+        border-top: 1px solid var(--lighter) !important;
         margin: 10px 0;
     }
 }
@@ -211,28 +211,28 @@
 	border-radius: 50%;
 	min-height: 2rem !important;
 	min-width: 2rem !important;
-	color: var(--primary-600) !important;
+	color: var(--primary) !important;
 }
 
 
 .sd-archive-pagination .page-numbers.prev,
 .sd-archive-pagination .page-numbers.next {
 	background: transparent;
-	color: var(--primary-600) !important;
-	border: 1px solid var(--primary-400);
+	color: var(--primary) !important;
+	border: 1px solid var(--primary);
 }
 
 
 
 .sd-archive-pagination .page-numbers:hover {
 	text-decoration: none !important;
-	background: var(--primary-400);
+	background: var(--primary);
 	color: var(--white) !important;
 }
 
 
 .sd-archive-pagination .page-numbers.current {
-	background: var(--primary-600);
+	background: var(--primary);
 	color: var(--white) !important;
 }
 
