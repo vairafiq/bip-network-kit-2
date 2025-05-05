@@ -2,8 +2,8 @@
     --primary: #333333;
     --primary-hover: #000000;
 
-    --secondary: #EE0000;
-    --secondary-hover: #DB0000;
+    --secondary: #c80303;
+    --secondary-hover: #ee0000;
 
     --header-bg: #333333;
     --footer-bg: #333333;
@@ -109,6 +109,7 @@ main a:hover {
     background: var(--secondary-hover);
     text-decoration: none !important;
     color: var(--white) !important;
+    box-shadow: 0 0 10px var(--secondary-hover);
 }
 
 /* buttons */
