@@ -107,6 +107,17 @@ function sd_enqueue_cdn() {
 
 
 
+// Disable Rank Math's meta description
+add_filter( 'rank_math/frontend/description', '__return_false' );
+
+// Disable Rank Math's meta title
+add_filter( 'rank_math/frontend/title', '__return_false' );
+
+// Remove all Rank Math <head> meta outputs
+function disable_rankmath_meta() {
+    remove_all_actions( 'rank_math/head' );
+}
+add_action( 'wp', 'disable_rankmath_meta' );
 
 
 /**
