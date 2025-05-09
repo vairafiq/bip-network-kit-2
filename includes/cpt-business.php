@@ -249,7 +249,7 @@ add_action('save_post', 'sd_save_business_fields');
 add_action( 'init', 'sd_cleanup_business_posts' );
 
 function sd_cleanup_business_posts() {
-    $current_cleanup_version = '1.0.0'; // Change this when you want to run cleanup again
+    $current_cleanup_version = '1.0.1'; // Change this when you want to run cleanup again
     $option_key = 'sd_business_cleanup_version';
 
     // Get the current saved version
