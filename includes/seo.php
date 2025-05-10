@@ -11,6 +11,138 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
+function bip_schema_types() {
+    return [
+        // Food & Drink
+        'restaurant'         => 'Restaurant',
+        'steak house'        => 'SteakHouse',
+        'bar'                => 'BarOrPub',
+        'cafe'               => 'CafeOrCoffeeShop',
+        'bakery'             => 'Bakery',
+        'fast food'          => 'FastFoodRestaurant',
+        'ice cream'          => 'IceCreamShop',
+        'pizza'              => 'PizzaRestaurant',
+        'sushi'              => 'SushiRestaurant',
+        'burger'             => 'FastFoodRestaurant',
+        'buffet'             => 'Restaurant',
+        'fine dining'        => 'Restaurant',
+    
+        // Health & Wellness
+        'doctor'             => 'MedicalClinic',
+        'dentist'            => 'Dentist',
+        'pharmacy'           => 'Pharmacy',
+        'hospital'           => 'Hospital',
+        'vet'                => 'VeterinaryCare',
+        'spa'                => 'DaySpa',
+        'salon'              => 'HairSalon',
+        'barbershop'         => 'Barbershop',
+        'gym'                => 'HealthClub',
+        'chiropractor'       => 'Chiropractic',
+        'therapist'          => 'Physician',
+        'optometrist'        => 'Optician',
+    
+        // Legal & Professional
+        'lawyer'             => 'LegalService',
+        'accountant'         => 'AccountingService',
+        'notary'             => 'Notary',
+        'consulting'         => 'ProfessionalService',
+        'real estate'        => 'RealEstateAgent',
+        'insurance'          => 'InsuranceAgency',
+        'tax'                => 'AccountingService',
+    
+        // Auto & Transportation
+        'auto repair'        => 'AutoRepair',
+        'car dealer'         => 'AutoDealer',
+        'car rental'         => 'CarRental',
+        'taxi'               => 'TaxiService',
+        'limousine'          => 'TaxiService',
+        'bus'                => 'BusStation',
+        'train'              => 'TrainStation',
+        'airport'            => 'Airport',
+        'gas station'        => 'GasStation',
+        'parking'            => 'ParkingFacility',
+    
+        // Stores & Shopping
+        'clothing'           => 'ClothingStore',
+        'grocery'            => 'GroceryStore',
+        'bookstore'          => 'BookStore',
+        'furniture'          => 'FurnitureStore',
+        'jewelry'            => 'JewelryStore',
+        'electronics'        => 'ElectronicsStore',
+        'toys'               => 'ToyStore',
+        'pet store'          => 'PetStore',
+        'hardware'           => 'HardwareStore',
+        'liquor'             => 'LiquorStore',
+        'shoe'               => 'ShoeStore',
+        'florist'            => 'Florist',
+        'sporting goods'     => 'SportingGoodsStore',
+        'beauty supply'      => 'HealthAndBeautyBusiness',
+    
+        // Home Services
+        'plumber'            => 'Plumber',
+        'electrician'        => 'Electrician',
+        'locksmith'          => 'Locksmith',
+        'cleaning'           => 'HomeAndConstructionBusiness',
+        'pest control'       => 'PestControl',
+        'landscaping'        => 'LandscapingBusiness',
+        'contractor'         => 'HomeAndConstructionBusiness',
+        'roofing'            => 'RoofingContractor',
+        'hvac'               => 'HVACBusiness',
+    
+        // Hospitality & Tourism
+        'hotel'              => 'Hotel',
+        'motel'              => 'LodgingBusiness',
+        'resort'             => 'Resort',
+        'bed and breakfast'  => 'BedAndBreakfast',
+        'guest house'        => 'LodgingBusiness',
+        'travel agency'      => 'TravelAgency',
+        'tour operator'      => 'TouristInformationCenter',
+        'hostel'             => 'Hostel',
+    
+        // Entertainment & Attractions
+        'museum'             => 'Museum',
+        'zoo'                => 'Zoo',
+        'aquarium'           => 'Aquarium',
+        'park'               => 'Park',
+        'movie theater'      => 'MovieTheater',
+        'theater'            => 'PerformingArtsTheater',
+        'amusement park'     => 'AmusementPark',
+        'arcade'             => 'EntertainmentBusiness',
+        'bowling'            => 'BowlingAlley',
+        'nightclub'          => 'NightClub',
+        'art gallery'        => 'ArtGallery',
+        'casino'             => 'Casino',
+    
+        // Education & Childcare
+        'school'             => 'EducationalOrganization',
+        'university'         => 'CollegeOrUniversity',
+        'daycare'            => 'ChildCare',
+        'tutoring'           => 'EducationalOrganization',
+        'music school'       => 'MusicSchool',
+        'driving school'     => 'DrivingSchool',
+    
+        // Religious & Civic
+        'church'             => 'PlaceOfWorship',
+        'mosque'             => 'PlaceOfWorship',
+        'temple'             => 'PlaceOfWorship',
+        'synagogue'          => 'PlaceOfWorship',
+        'courthouse'         => 'GovernmentBuilding',
+        'police'             => 'PoliceStation',
+        'fire station'       => 'FireStation',
+        'post office'        => 'PostOffice',
+        'library'            => 'Library',
+    
+        // Tech & Media
+        'computer repair'    => 'ComputerStore',
+        'web design'         => 'ProfessionalService',
+        'print shop'         => 'Store',
+        'photography'        => 'Photograph',
+        'marketing'          => 'ProfessionalService',
+    ];
+    
+}
+
 add_action('wp_head', 'add_business_schema_to_head');
 function add_business_schema_to_head() {
     if (!is_singular('sd_business')) return;
@@ -18,41 +150,8 @@ function add_business_schema_to_head() {
     $post_id = get_the_ID();
 
     // === Category to Schema Type Mapping ===
-    $schema_type_map = [
-        'restaurant'     => 'Restaurant',
-        'steak house'    => 'SteakHouse',
-        'bar'            => 'BarOrPub',
-        'cafe'           => 'CafeOrCoffeeShop',
-        'bakery'         => 'Bakery',
-        'fast food'      => 'FastFoodRestaurant',
-        'ice cream'      => 'IceCreamShop',
-        'hotel'          => 'Hotel',
-        'salon'          => 'HairSalon',
-        'barbershop'     => 'Barbershop',
-        'spa'            => 'DaySpa',
-        'gym'            => 'HealthClub',
-        'doctor'         => 'MedicalClinic',
-        'dentist'        => 'Dentist',
-        'pharmacy'       => 'Pharmacy',
-        'vet'            => 'VeterinaryCare',
-        'lawyer'         => 'LegalService',
-        'accountant'     => 'AccountingService',
-        'auto repair'    => 'AutoRepair',
-        'car dealer'     => 'AutoDealer',
-        'real estate'    => 'RealEstateAgent',
-        'plumber'        => 'Plumber',
-        'electrician'    => 'Electrician',
-        'locksmith'      => 'Locksmith',
-        'pet store'      => 'PetStore',
-        'clothing'       => 'ClothingStore',
-        'grocery'        => 'GroceryStore',
-        'bookstore'      => 'BookStore',
-        'furniture'      => 'FurnitureStore',
-        'jewelry'        => 'JewelryStore',
-        'electronics'    => 'ElectronicsStore',
-        'toys'           => 'ToyStore',
-    ];
-
+    $schema_type_map = bip_schema_types();
+    
     // === Get primary category from taxonomy and determine @type
     $schema_type = 'LocalBusiness';
     $terms = get_the_terms($post_id, 'sd_business_category');
