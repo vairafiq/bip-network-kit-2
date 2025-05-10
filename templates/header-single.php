@@ -85,7 +85,7 @@
                     </li>
                     <li class="sd-menu-item-wrapper">
                         <span class="sd-menu-item">
-                            <a href="https://bippermedia.com/add-network-business/" class="sd-btn-secondary" aria-label="Add your business">
+                            <a href="https://bippermedia.com/local-citations/" class="sd-btn-secondary" aria-label="Add your business">
                                 <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Your Business
                             </a>
                             

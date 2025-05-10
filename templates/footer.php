@@ -9,7 +9,7 @@
         <div class="sd-footer-main">
             <div class="sd-footer-bio">
                 <span class="site-name"><?php bloginfo('name'); ?></span>
-                <p><?php bloginfo('name'); ?> is a top-rated directory connecting users to trusted local businesses quickly and easily — powered by <a href="bippermedia.com">Bipper Media</a></p>
+                <p><?php bloginfo('name'); ?> is a top-rated directory connecting users to trusted local businesses quickly and easily — powered by <a href="https://bippermedia.com">Bipper Media</a></p>
             </div>
             <div class="sd-footer-spacer"></div> <!-- Spacer for layout -->
             <nav class="sd-footer-nav">
@@ -23,8 +23,8 @@
             <div class="sd-footer-contacts">
                 <span class="footer-header" style="text-transform:none !important;">Decided to be included here?</span>
                 <div>
-                    <a href="https://bippermedia.com/add-network-business/" class="sd-btn-secondary" aria-label="Add your business">
-                        <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
+                    <a href="https://bippermedia.com/local-citations/" class="sd-btn-secondary" aria-label="Add your business">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Your Business
                     </a>
                 </div>
             </div>

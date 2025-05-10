@@ -1,12 +1,12 @@
 :root {
-    --primary: #333333;
-    --primary-hover: #000000;
+    --primary: #000000;
+    --primary-hover: #333333;
 
     --secondary: #c80303;
     --secondary-hover: #ee0000;
 
-    --header-bg: #333333;
-    --footer-bg: #333333;
+    --header-bg: #000000;
+    --footer-bg: #000000;
 
 
     --accent: #ff297e;
@@ -104,8 +104,10 @@ main a:hover {
     max-width: max-content;
     text-transform: none !important;
 }
-.sd-btn-secondary:hover,
-.sd-btn-secondary:hover i {
+.sd-btn-secondary i {
+    color: var(--white) !important;
+}
+.sd-btn-secondary:hover {
     background: var(--secondary-hover);
     text-decoration: none !important;
     color: var(--white) !important;

@@ -20,7 +20,7 @@ function sd_add_business_cta_shortcode() {
                 ?>
             </div>
             <div class="sd-cta-button">
-                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-primary">Add Your Business</a>
+                <a href="https://bippermedia.com/local-citations/" class="sd-btn-primary">Add Your Business</a>
             </div>
         </div>
     </div>
