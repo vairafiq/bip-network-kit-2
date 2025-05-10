@@ -30,7 +30,51 @@ function register_api_endpoints(){
         'callback' => 'bip_get_unlist_response',
         'permission_callback' => '__return_true',
     ));
+    register_rest_route('bip/relist', '/listing/', array(
+        'methods' => 'POST',
+        'callback' => 'bip_get_relist_response',
+        'permission_callback' => '__return_true',
+    ));
 }
+
+function bip_get_relist_response( $request ) {
+    $params = $request->get_params();
+
+    $network_id = $params['network_id'] ?? '';
+    if ( ! $network_id ) {
+        return new WP_REST_Response( [ 'error' => 'Missing network_id' ], 400 );
+    }
+
+    $args = [
+        'post_type'      => 'sd_business',
+        'posts_per_page' => 1,
+        'meta_query'     => [
+            [
+                'key'     => 'network_id',
+                'value'   => $network_id,
+                'compare' => '='
+            ]
+        ]
+    ];
+
+    $query = new WP_Query($args);
+
+    if ( ! $query->have_posts() ) {
+        return new WP_REST_Response( [ 'error' => 'Listing not found' ], 404 );
+    }
+
+    $post = $query->posts[0];
+    $post_id = $post->ID;
+
+    // Set status to publish (relist)
+    wp_update_post([
+        'ID'          => $post_id,
+        'post_status' => 'publish',
+    ]);
+
+    return new WP_REST_Response( [ 'success' => true, 'message' => 'Listing has been relisted.', 'post_id' => $post_id ], 200 );
+}
+
 
 
 function bip_get_unlist_response( $request ) {
