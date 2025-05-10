@@ -20,7 +20,7 @@ function sd_add_business_cta_shortcode() {
                 ?>
             </div>
             <div class="sd-cta-button">
-                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-primary">Add Your Business</a>
+                <a href="https://bippermedia.com/local-citations/" class="sd-btn-primary">Add Your Business</a>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@ function sd_add_business_cta_shortcode() {
     <style>
         .sd-cta-wrapper {
             background-color: var(--lighter);
-            padding: 80px 80px;
+            padding: 3rem;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             max-width: 1100px;
@@ -37,12 +37,12 @@ function sd_add_business_cta_shortcode() {
 
         .sd-cta-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr auto;
             grid-template-areas:
-                "head features"
-                "button features";
-            align-items: start;
-            gap: 30px;
+                "head button"
+                "features button";
+            align-items: center;
+            column-gap: 2rem;
         }
 
         .sd-cta-head {
@@ -70,8 +70,8 @@ function sd_add_business_cta_shortcode() {
             align-items: start;
             gap: 10px;
             font-size: 16px;
-            font-weight: 500;
-            color: var(--gray);
+            color: var(--black) !important;
+            font-weight: var(--p-weight);
             line-height: 1.6;
             margin-bottom: 10px;
             text-align: left;

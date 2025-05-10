@@ -44,12 +44,12 @@ function sd_header_shortcode($atts) {
                 <!-- Main Navigation -->
                 <nav class="sd-navigation">
 
-                    <button class="sd-menu-toggle">
+                    <button class="sd-menu-toggle" aria-label="Mobile menu open">
                         <i class="fa fa-bars"></i>
                     </button>
 
                     <ul class="sd-menu">
-                        <button class="sd-menu-toggle-close">
+                        <button class="sd-menu-toggle-close" aria-label="Mobile menu close">
                             <i class="fa fa-times"></i>
                         </button>
 
@@ -99,8 +99,8 @@ function sd_header_shortcode($atts) {
                         </li>
                         <li class="sd-menu-item-wrapper">
                             <span class="sd-menu-item">
-                                <a href="https://bippermedia.com/add-network-business/" class="sd-btn-secondary" aria-label="Add your business">
-                                    <i class="fa-solid fa-plus" aria-hiiden="true"></i> Add Your Business
+                                <a href="https://bippermedia.com/local-citations/" class="sd-btn-secondary" aria-label="Add your business">
+                                    <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Your Business
                                 </a>
                                 
                             <!-- <span class="sd-submenu-toggle" aria-label="Toggle submenu">

@@ -14,13 +14,15 @@
 }
 .sd-footer-main {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     justify-content: space-between;
-    gap: 2rem;
     padding-bottom: 4rem;
 }
 .sd-footer-bio {
     min-width: 400px;
+}
+.sd-footer-contacts {
+    min-width: 215px !important;
 }
 .sd-footer-bio .site-name {
 	display: block;
@@ -103,11 +105,10 @@
 @media (max-width: 768px) {
     .sd-footer-main {
         grid-template-columns: 1fr;
-    }
-    .sd-footer-main {
+        gap: 1rem;
         padding-bottom: 2rem;
     }
     .sd-footer-bio {
-        min-width: 300px;
+        min-width: 300px !important;
     }
 }

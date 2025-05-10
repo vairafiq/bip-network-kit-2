@@ -2,7 +2,7 @@
 /*
 Plugin Name: Bip Directory Kit
 Description: A simple kit to override theme templates and includes custom post types, styles, and scripts for a simple directory listing.
-Version: 0.2
+Version: 0.3
 Author: Bip Dev Team
 Author URI: https://bippermedia.com
 License: GPL2
@@ -106,6 +106,17 @@ function sd_enqueue_cdn() {
 
 
 
+// Disable Rank Math's meta description
+add_filter( 'rank_math/frontend/description', '__return_false' );
+
+// Disable Rank Math's meta title
+add_filter( 'rank_math/frontend/title', '__return_false' );
+
+// Remove all Rank Math <head> meta outputs
+function disable_rankmath_meta() {
+    remove_all_actions( 'rank_math/head' );
+}
+add_action( 'wp', 'disable_rankmath_meta' );
 
 
 /**

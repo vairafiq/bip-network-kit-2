@@ -47,8 +47,8 @@ function sd_create_default_kit_settings_post() {
             $default_values = [
                 'primary'           => '#333333',
                 'primary_hover'     => '#000000',
-                'secondary'         => '#EE0000',
-                'secondary_hover'   => '#DB0000',
+                'secondary'         => '#c80303',
+                'secondary_hover'   => '#EE0000',
 
                 'header_bg'   => '#333333',
                 'footer_bg'   => '#333333',
@@ -113,8 +113,8 @@ function sd_render_kit_settings_fields($post) {
     $default_values = [
         'primary'           => '#333333',
         'primary_hover'     => '#000000',
-        'secondary'         => '#EE0000',
-        'secondary_hover'   => '#DB0000',
+        'secondary'         => '#c80303',
+        'secondary_hover'   => '#EE0000',
 
         'header_bg'   => '#333333',
         'footer_bg'   => '#333333',

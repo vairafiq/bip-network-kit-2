@@ -20,7 +20,7 @@ add_action( 'init', function(){
 
 function bip_ai_server_response( $command ) {
 
-    $key = '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';
+    $key = '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';
 
     $url = 'https://api.groq.com/openai/v1/chat/completions';
 
