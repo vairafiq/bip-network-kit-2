@@ -143,6 +143,7 @@ function bip_schema_types() {
     
 }
 
+
 add_action('wp_head', 'add_business_schema_to_head');
 function add_business_schema_to_head() {
     if (!is_singular('sd_business')) return;
@@ -155,8 +156,11 @@ function add_business_schema_to_head() {
     // === Get primary category from taxonomy and determine @type
     $schema_type = 'LocalBusiness';
     $terms = get_the_terms($post_id, 'sd_business_category');
+    $category_name = ''; // Initialize category name
+
     if (!empty($terms) && !is_wp_error($terms)) {
         $primary_term_name = strtolower($terms[0]->name); // assuming first term is primary
+        $category_name = $terms[0]->name; // Store the category name for cuisine
         foreach ($schema_type_map as $key => $mapped_type) {
             if (strpos($primary_term_name, $key) !== false) {
                 $schema_type = $mapped_type;
@@ -171,7 +175,7 @@ function add_business_schema_to_head() {
     $unwrapped = is_string($reviews_meta) ? @unserialize($reviews_meta) : [];
 
     if (!empty($unwrapped['reviews']) && is_array($unwrapped['reviews'])) {
-        $reviews = array_slice($unwrapped['reviews'], 0, 2);
+        $reviews = array_slice($unwrapped['reviews'], 0, 10);
         $structured_reviews = array_map(function($review) {
             return [
                 "@type" => "Review",
@@ -216,6 +220,45 @@ function add_business_schema_to_head() {
         }
     }
 
+    // === Business Hours (openingHours) ===
+    $business_hours_meta = get_post_meta($post_id, 'business_hours', true);
+    $opening_hours = [];
+
+    // Unserialize the business hours meta data
+    $business_hours = is_string($business_hours_meta) ? @unserialize($business_hours_meta) : [];
+
+    // Check if business hours data exists and format accordingly
+    if (!empty($business_hours) && is_array($business_hours)) {
+        foreach ($business_hours as $hours) {
+            $opening_hours[] = $hours['day'] . ' ' . $hours['hours'];
+        }
+    }
+
+    // === Geo Schema (latitude & longitude) ===
+    $latitude = get_post_meta($post_id, 'latitude', true);
+    $longitude = get_post_meta($post_id, 'longitude', true);
+
+    $geo = [];
+    if ($latitude && $longitude) {
+        $geo = [
+            "@type" => "GeoCoordinates",
+            "latitude" => $latitude,
+            "longitude" => $longitude
+        ];
+    }
+
+    // === Address Schema ===
+    $address_meta = get_post_meta($post_id, 'address', true);
+    $street_meta = get_post_meta($post_id, 'street', true);
+    $zip_meta = get_post_meta($post_id, 'zip', true);
+    $state_meta = get_post_meta($post_id, 'state', true);
+    $country_meta = get_post_meta($post_id, 'country', true);
+
+    $address = '';
+    if (!empty($street_meta) && !empty($zip_meta) && !empty($state_meta) && !empty($country_meta)) {
+        $address = $street_meta[0] . ', ' . $state_meta[0] . ' ' . $zip_meta[0] . ', ' . $country_meta[0];
+    }
+
     // === Business Schema ===
     $schema = [
         "@context" => "https://schema.org",
@@ -225,13 +268,23 @@ function add_business_schema_to_head() {
             "@type" => "ImageObject",
             "url" => get_post_meta($post_id, 'main_image', true)
         ],
-        "address" => get_post_meta($post_id, 'business', true),
+        "address" => [
+            "@type" => "PostalAddress",
+            "streetAddress" => $street_meta[0] ?? '',
+            "addressLocality" => $state_meta[0] ?? '',
+            "postalCode" => $zip_meta[0] ?? '',
+            "addressCountry" => $country_meta[0] ?? ''
+        ],
+        "geo" => $geo, // Add geo coordinates
         "telephone" => get_post_meta($post_id, 'phone', true),
         "priceRange" => "$$",
-        "servesCuisine" => get_post_meta($post_id, 'catgory', true),
         "url" => get_permalink($post_id),
-        "openingHours" => "Mo-Su 12:00-18:00",
+        "openingHours" => $opening_hours, // Use the dynamic opening hours
     ];
+    
+    if ($schema_type === 'Restaurant') {
+        $schema["servesCuisine"] = $category_name;
+    }
 
     // Add reviews
     if (!empty($structured_reviews)) {
@@ -281,4 +334,3 @@ function add_business_schema_to_head() {
         echo '<script type="application/ld+json">' . json_encode($faq_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
     }
 }
-

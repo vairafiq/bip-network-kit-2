@@ -2,20 +2,27 @@
 function sd_render_review_summary() {
     $review_summary = get_post_meta(get_the_ID(), 'review_summary', true);
     
-    // If it's an array, get the first element
     if (is_array($review_summary)) {
         $review_string = $review_summary[0] ?? '';
     } else {
         $review_string = $review_summary;
     }
 
-    // Default string if empty
     if (empty($review_string)) {
         return;
     }
 
-    // Match lines with **Source**: **Rating** from **Count**
-    preg_match_all('/\*\*(.*?)\*\*: \*\*(.*?)\*\* from \*\*(.*?)\*\*/', $review_string, $matches, PREG_SET_ORDER);
+    // Match both bold and normal styles
+    preg_match_all(
+        '/\*\*(.*?)\*\*: ?(?:(?:\*\*(.*?)\*\* from \*\*(.*?)\*\*)|([\d.]+) stars from (\d+) reviews)/',
+        $review_string,
+        $matches,
+        PREG_SET_ORDER
+    );
+
+    if (empty($matches)) {
+        return;
+    }
 
     ob_start();
     ?>
@@ -32,8 +39,16 @@ function sd_render_review_summary() {
             <?php foreach ($matches as $match): ?>
                 <tr>
                     <td><?php echo esc_html($match[1]); ?></td>
-                    <td><?php echo esc_html($match[2]); ?></td>
-                    <td><?php echo esc_html($match[3]); ?></td>
+                    <td>
+                        <?php
+                        echo esc_html(!empty($match[2]) ? $match[2] : $match[4]);
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo esc_html(!empty($match[3]) ? $match[3] : $match[5]) . ' reviews';
+                        ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
