@@ -138,7 +138,9 @@ function sd_single_banner_shortcode() {
                             
                         <?php
                         if ( ! empty( $content ) ) :
-                            $words = explode( ' ', wp_strip_all_tags( $content ) );
+                            $content = wp_strip_all_tags( $content ); // Remove HTML tags
+                            $content = preg_replace( '/\s+/', ' ', $content ); // Remove extra spaces
+                            $words = explode( ' ',  $content );
                             $short_content = implode( ' ', array_slice( $words, 0, 45 ) );
                             ?>
                             <div class="sd-single-banner-details-content">
