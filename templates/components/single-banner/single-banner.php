@@ -171,7 +171,7 @@ function sd_single_banner_shortcode() {
                             
                             <!-- sd-single-banner-details-contact -->
                             <div class="sd-single-banner-details-contact">
-                                <?php if ( $address ) : ?>
+                                <?php if ( false ) : ?>
                                 <div class="sd-single-banner-address">
                                     <?php echo $pin_icon; ?>
                                     <span><?php echo esc_html( $address ); ?></span>
@@ -185,7 +185,7 @@ function sd_single_banner_shortcode() {
                                 </div>
                                 <?php endif; ?>
 
-                                <?php if ( $email ) : ?>
+                                <?php if ( false ) : ?>
                                 <div class="sd-single-banner-email" style="display:none !important;">
                                     <?php echo $email_icon; ?>
                                     <a href="mailto:<?php echo esc_html( $email ); ?>"><?php echo esc_html( $email ); ?></a>
