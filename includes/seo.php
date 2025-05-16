@@ -44,6 +44,7 @@ function bip_schema_types() {
     
         // Legal & Professional
         'lawyer'             => 'LegalService',
+        'immigration attorney' => 'LegalService',
         'accountant'         => 'AccountingService',
         'notary'             => 'Notary',
         'consulting'         => 'ProfessionalService',
@@ -326,6 +327,71 @@ function add_business_schema_to_head() {
             ]
         ];
     }
+    
+    
+    // === VideoObject Schema ===
+    $videos = ! empty( $unwrapped['media']['videoLinks'] ) ? $unwrapped['media']['videoLinks'] : [];
+
+    if (!empty($videos) && is_array($videos)) {
+        $video_schema = [];
+
+        foreach ($videos as $index => $v) {
+            
+            if( 1 == $index ) {
+                break;
+            }
+            
+            if (!empty($v['video'])) {
+                $video_schema[] = [
+                    "@type" => "VideoObject",
+                    "name" => "Restaurant Video " . ($index + 1),
+                    "thumbnailUrl" => $v["poster"] ?? '',
+                    "contentUrl" => $v["video"],
+                    "uploadDate" => date("c"),
+                    "description" => get_the_content( get_the_ID() ),
+                    "duration" => isset($v['duration']) ? "PT" . str_replace(":", "M", $v["duration"]) . "S" : null
+                ];
+            }
+        }
+
+        if (!empty($video_schema)) {
+            echo '<script type="application/ld+json">' . json_encode($video_schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
+        }
+    }
+    
+        // Organization
+    $organization = [
+        '@type' => 'Organization',
+        '@id'   => home_url() . '#organization',
+        'name'  => get_bloginfo( 'name' ),
+        'url'   => home_url(),
+        'logo'  => [
+            '@type' => 'ImageObject',
+            'url'   => get_theme_mod( 'custom_logo' ) ? wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' ) : '',
+        ],
+        'sameAs' => [
+            'https://www.facebook.com/bippermedia/',
+            'https://x.com/bippermedia/',
+            'https://www.linkedin.com/company/bipper-media/',
+            'https://www.youtube.com/channel/UCSp_-mTLSATD8kFxZFs-fKw'
+        ],
+    ];
+    
+    echo '<script type="application/ld+json">' . json_encode($organization, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
+
+    // WebSite
+    $website = [
+        '@type' => 'WebSite',
+        '@id'   => home_url() . '#website',
+        'url'   => home_url(),
+        'name'  => get_bloginfo( 'name' ),
+        'publisher' => [
+            '@id' => home_url() . '#organization'
+        ],
+    ];
+
+    echo '<script type="application/ld+json">' . json_encode($website, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
+
 
     // === Output JSON-LD ===
     echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';

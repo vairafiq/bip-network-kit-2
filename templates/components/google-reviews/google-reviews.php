@@ -53,7 +53,11 @@ function sd_google_reviews_shortcode() {
                             </div>
                         </div>
                         <div class="sd-google-review-text">
-                            <?php echo esc_html($text); ?>
+                            <?php
+                                $text = wp_strip_all_tags( $text ); // Remove HTML tags
+                                $text = preg_replace( '/\s+/', ' ', $text ); // Remove extra spaces
+                                echo esc_html($text);
+                            ?>
                         </div>
                         <div class="sd-google-review-meta">
 

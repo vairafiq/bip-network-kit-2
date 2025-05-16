@@ -138,7 +138,9 @@ function sd_single_banner_shortcode() {
                             
                         <?php
                         if ( ! empty( $content ) ) :
-                            $words = explode( ' ', wp_strip_all_tags( $content ) );
+                            $content = wp_strip_all_tags( $content ); // Remove HTML tags
+                            $content = preg_replace( '/\s+/', ' ', $content ); // Remove extra spaces
+                            $words = explode( ' ',  $content );
                             $short_content = implode( ' ', array_slice( $words, 0, 45 ) );
                             ?>
                             <div class="sd-single-banner-details-content">
@@ -169,7 +171,7 @@ function sd_single_banner_shortcode() {
                             
                             <!-- sd-single-banner-details-contact -->
                             <div class="sd-single-banner-details-contact">
-                                <?php if ( $address ) : ?>
+                                <?php if ( false ) : ?>
                                 <div class="sd-single-banner-address">
                                     <?php echo $pin_icon; ?>
                                     <span><?php echo esc_html( $address ); ?></span>
@@ -183,7 +185,7 @@ function sd_single_banner_shortcode() {
                                 </div>
                                 <?php endif; ?>
 
-                                <?php if ( $email ) : ?>
+                                <?php if ( false ) : ?>
                                 <div class="sd-single-banner-email" style="display:none !important;">
                                     <?php echo $email_icon; ?>
                                     <a href="mailto:<?php echo esc_html( $email ); ?>"><?php echo esc_html( $email ); ?></a>

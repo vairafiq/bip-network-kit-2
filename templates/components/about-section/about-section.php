@@ -9,6 +9,15 @@ function sd_about_section_shorcode() {
     ';
     $about_content = !empty(sd_get_kit('about_content')) ? sd_get_kit('about_content') : $about_content;
     $about_image = !empty(sd_get_kit('about_image')) ? sd_get_kit('about_image') : SD_PLUGIN_URL . 'assets/images/about.webp';
+    $attachment_id = attachment_url_to_postid($about_image);
+
+    $alt_text = 'About us banner image';
+    $title = 'About us banner image';
+    // Get the alt text and title from the attachment ID
+    if ($attachment_id) {
+        $alt_text = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
+        $title = get_the_title($attachment_id);
+    }
     ob_start();
     ?>
 
@@ -21,7 +30,7 @@ function sd_about_section_shorcode() {
                 </div>
             </div>
             <div class="sd-about-image">
-                <img src="<?php echo esc_url($about_image); ?>" alt="About us banner">
+                <img src="<?php echo esc_url($about_image); ?>" alt="<?php echo esc_attr($alt_text); ?>" title="<?php echo esc_attr($title); ?>" />
             </div>
         </div>
     </div>
